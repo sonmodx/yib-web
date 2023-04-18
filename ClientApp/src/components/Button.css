@@ -1,0 +1,39 @@
+.Button button{
+    cursor: pointer;
+    font-size: var(--thirdary-fs);
+    color: var(--primary-font-clr);
+    padding: 0.75em 2em;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    transition: scale 0.3s ease;
+}
+
+.Button button:hover {
+    scale: 1.1;
+}
+
+.Button button:active {
+    scale: 1.2;
+}
+
+.Button .primary {
+    background-color: var(--main-clr);
+}
+
+.Button .red {
+    background-color: #e04642;
+}
+
+.Button .green {
+    background-color: var(--main-clr);
+}
+
+.Button .orange {
+    background-color: #e68d28;
+}
+
+.Button .secondary {
+    border: 3px solid var(--main-clr);
+    color: var(--main-clr);
+}

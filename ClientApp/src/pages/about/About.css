@@ -1,0 +1,4 @@
+.About {
+    padding-top: var(--navbar-height);
+    color: var(--secondary-font-clr);
+}

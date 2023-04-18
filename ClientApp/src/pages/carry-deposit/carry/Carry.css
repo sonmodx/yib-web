@@ -1,0 +1,82 @@
+.Carry {
+    padding-top: var(--navbar-height);
+    color: var(--secondary-font-clr);
+}
+
+.Carry .container {
+    width: min(90%, 65rem);
+    margin-inline: auto;
+}
+
+.Carry header .title {
+    font-size: var(--primary-fs);
+}
+
+.Carry .sub-title {
+    font-size: var(--secondary-fs);
+}
+
+.Carry .sub-text {
+    color: var(--thirdary-font-clr);
+}
+
+.Carry .welcome {
+    font-size: var(--primary-fs);
+}
+
+.Carry .right {
+    text-align: end;
+}
+
+.Carry header {
+    background-color: var(--main-clr);
+    padding: 1em;
+    color: var(--primary-font-clr);
+}
+
+.Carry header .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+}
+
+.Carry section {
+    margin-top: 5em;
+}
+
+.Carry section .grid {
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2em;
+}
+
+.Carry .grid .span-2 {
+    grid-column: span 2;
+}
+
+
+@media screen and (max-width : 800px){
+    .Carry section .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .Carry header .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .Carry .grid .span-2 {
+        grid-column: 1
+    }
+}
+
+@media screen and (max-width : 550px){
+    .Carry section .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .Carry header .grid {
+        grid-template-columns: 1fr;
+    }
+}
+

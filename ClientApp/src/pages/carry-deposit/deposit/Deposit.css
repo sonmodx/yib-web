@@ -1,0 +1,98 @@
+.Deposit {
+    padding-top: var(--navbar-height);
+    color: var(--secondary-font-clr);
+}
+
+.Deposit textarea {
+    resize: none;
+    padding: .5em;
+    border: 0;
+    outline: transparent;
+    background-color: var(--bg-clr);
+    color: var(--primary-font-clr);
+}
+
+.Deposit .container {
+    width: min(90%, 65rem);
+    margin-inline: auto;
+}
+
+.Deposit header .title {
+    font-size: var(--primary-fs);
+}
+
+.Deposit .sub-title {
+    font-size: var(--secondary-fs);
+}
+
+.Deposit .sub-text {
+    color: var(--thirdary-font-clr);
+}
+
+.Deposit .welcome {
+    font-size: var(--primary-fs);
+}
+
+.Deposit .box {
+    background-color: var(--bg-clr);
+    border-radius: .5em;
+    padding: 1em;
+    color: var(--secondary-font-clr);
+}
+
+.Deposit .right {
+    text-align: end;
+}
+
+.Deposit header {
+    background-color: var(--main-clr);
+    padding: 1em;
+    color: var(--primary-font-clr);
+}
+
+
+
+.Deposit header .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+}
+
+.Deposit section {
+    margin-top: 5em;
+}
+
+.Deposit section .grid {
+    display: grid;
+    gap: 2em;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2em;
+}
+
+.Deposit .grid .span-2 {
+    grid-column: span 2;
+}
+
+@media screen and (max-width : 800px){
+    .Deposit section .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .Deposit header .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .Deposit .grid .span-2 {
+        grid-column: 1
+    }
+}
+
+@media screen and (max-width : 550px){
+    .Deposit section .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .Deposit header .grid {
+        grid-template-columns: 1fr;
+    }
+}

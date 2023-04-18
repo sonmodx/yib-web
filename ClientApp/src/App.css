@@ -1,0 +1,51 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --navbar-height :80px;
+    --main-clr: #5AB963;
+    --font-family : Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --primary-font-clr :#fff;
+    --secondary-font-clr :#121212;
+    --thirdary-font-clr :gray;
+    --input-font-clr : var(--secondary-font-clr);
+    --primary-fs : clamp(2rem, 1rem + 2vw, 4rem);
+    --secondary-fs : clamp(0.75rem, 1rem + 1vw, 1.5rem);
+    --thirdary-fs : clamp(0.5rem, 1rem + 1vw, 1rem);
+    --bg-clr : #fff;
+  }
+  
+  .dark-mode {
+    --main-clr: #04AA6D;
+    --primary-font-clr :rgba(255,255,255,0.87);
+    --secondary-font-clr :rgba(255,255,255,0.6);
+    --thirdary-font-clr :rgba(255,255,255,0.38);
+    --input-font-clr : var(--primary-font-clr);
+    --bg-clr : #121212;
+  }
+  
+  .App {
+    min-height: 100vh;
+    min-height: 100dvh;
+    font-family: var(--font-family);
+    line-height: 1.5;
+    font-weight: 400;
+  
+    
+    color: var(--primary-font-clr);
+    background-color: var(--bg-clr);
+  
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+  
+  input, textarea {
+    width: 100%;
+  }
+  

@@ -1,0 +1,42 @@
+footer {
+    margin-top: 8rem;
+    background-color: #0A0E1A;
+    padding: 5rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+footer .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+footer .company p{
+    margin-top: 3rem;
+}
+
+footer .summary.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+footer .summary.grid .span2{
+    grid-column: span 2;
+}
+
+
+footer .icon-link {
+    gap: 4em;
+    justify-content: center;
+}
+
+footer .link {
+    text-decoration: none;
+    color: var(--primary-font-clr);
+    width: fit-content;
+    height: fit-content;
+}
+
+footer .icon-link .link{
+    font-size: var(--secondary-fs);
+    
+}
