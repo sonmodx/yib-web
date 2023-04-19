@@ -16,6 +16,9 @@
     --secondary-fs : clamp(0.75rem, 1rem + 1vw, 1.5rem);
     --thirdary-fs : clamp(0.5rem, 1rem + 1vw, 1rem);
     --bg-clr : #fff;
+    --border-card : none;
+    --box-shadow : 0px 0px 5px #aaa;
+    --font-clr : #121212;
   }
   
   .dark-mode {
@@ -25,6 +28,9 @@
     --thirdary-font-clr :rgba(255,255,255,0.38);
     --input-font-clr : var(--primary-font-clr);
     --bg-clr : #121212;
+    --border-card : 2px solid ghostwhite;
+    --box-shadow : none;
+    --font-clr :#fff;
   }
   
   .App {

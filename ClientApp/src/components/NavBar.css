@@ -87,53 +87,35 @@
   transform: scaleX(1);
 }
 
-/* .Navbar .bar {
-  width: 70px;
-  border-radius: 10em;
-  background-color: var(--bg-clr);
-  padding: 3px;
-  box-shadow: inset 0px 0px 7px var(--secondary-font-clr);
-  cursor: pointer;
-  transition: 1s ease;
-}
-
-.Navbar .dark-mode-toggle {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: var(--secondary-fs);
-  
-  border-radius: 50%;
-  padding: 15px;
-  width: 20px;
-  height: 20px;
-}
-
-.Navbar .dark-mode-toggle.fa-sun {
-  color: #D8831B;
-  animation: moveLeft 1s alternate forwards;
-}
-
-.Navbar .dark-mode-toggle.fa-moon {
-  color: #4D5A94;
-  animation: moveRight 1s alternate forwards;
-} */
-
 .Navbar .dropdown {
   position: relative;
+}
+
+.Navbar .dropdown:is(:focus, :hover) {
+  outline: 2px solid var(--primary-font-clr);
 }
 
 .Navbar .dropbtn {
   display: flex;
   align-items: center;
   cursor: pointer;
+  color: var(--primary-font-clr);
+  padding: .25em 1em;
+}
+
+.Navbar .dropbtn.open {
+  color: var(--main-clr);
 }
 
 .Navbar .dropdown:has(.dropbtn.open) .dropdown-content {
   display: block;
   opacity: 1;
   pointer-events: auto;
+}
+
+.Navbar .dropdown:has(.dropbtn.open) {
+  background-color: var(--bg-clr);
+  
 }
 
 .Navbar .dropbtn::after {
@@ -152,11 +134,14 @@
   /* display: none; */
   position: absolute;
   top: calc(100% + .5em);
+  left: 0;
   line-height: 2em;
   background-color: var(--bg-clr);
   padding: .5em 1em;
   transition: 0.3s ease;
   opacity: 0;
+  border-radius: .5em;
+  box-shadow: 0px 0px 10px var(--secondary-font-clr);
 }
 
 .Navbar .dropdown-content > .group {
