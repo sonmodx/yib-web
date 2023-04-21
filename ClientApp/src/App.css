@@ -22,7 +22,7 @@
   }
   
   .dark-mode {
-    --main-clr: #04AA6D;
+    /* --main-clr: #04AA6D; */
     --primary-font-clr :rgba(255,255,255,0.87);
     --secondary-font-clr :rgba(255,255,255,0.6);
     --thirdary-font-clr :rgba(255,255,255,0.38);

@@ -9,7 +9,7 @@
     border: 0;
     outline: transparent;
     background-color: var(--bg-clr);
-    color: var(--primary-font-clr);
+    color: var(--font-clr);
 }
 
 .Deposit .container {
