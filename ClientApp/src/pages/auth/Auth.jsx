@@ -17,8 +17,7 @@ const Auth = () => {
 
         const email = event.target.email.value;
         const password = event.target.password.value;
-
-        // Replace with your API URL
+        console.log(email, password);
         const apiUrl = '/user/login';
 
         const response = await fetch(apiUrl, {
@@ -27,11 +26,12 @@ const Auth = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                email,password
+                email: email,
+                password: password
             }),
         });
 
-        const data = await response.json();
+        //const data = await response.json();
 
         // Do something with the data (e.g. save token, navigate to another page, etc.)
     };
@@ -42,7 +42,6 @@ const Auth = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
         console.log(username, email, password);
-        // Replace with your API URL
         const apiUrl = '/user/register';
 
         const response = await fetch(apiUrl, {
@@ -51,11 +50,14 @@ const Auth = () => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                username, email, password
+                Id: 0,
+                username: username,
+                email: email,
+                password: password
             }),
         });
 
-        const data = await response.json();
+        //const data = await response.json();
 
         // Do something with the data (e.g. navigate to login page, show success message, etc.)
     };
