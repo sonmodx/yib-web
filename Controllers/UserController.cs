@@ -17,11 +17,22 @@ namespace my_new_app.Controllers
         //interface
         public IActionResult Register([FromBody] UserModel newUser)
         {
-            _db.Users.Add(newUser);
-            _db.SaveChanges();
+            var isUserExist = _db.Users.Any(u => u.email == newUser.email || u.username == newUser.username);
             Console.WriteLine("{0} {1} {2}", newUser.Id, newUser.email, newUser.password);
-            return Ok();
-            //.where
+            // ยังไม่มี user
+            if (!isUserExist)
+            {
+                _db.Users.Add(newUser);
+                _db.SaveChanges();
+
+                var option = new CookieOptions();
+                option.Secure = true;
+                option.HttpOnly = true;
+                option.Expires = DateTimeOffset.UtcNow.AddHours(1);
+                Response.Cookies.Append("email", newUser.email, option);
+                return Ok(newUser.username);
+            }
+            return BadRequest("Username or Email Exist");
         }
 
         [HttpPost]
@@ -29,7 +40,6 @@ namespace my_new_app.Controllers
         {
             Console.WriteLine("{0} {1} ", model.email, model.password);
 
-            //var user = _db.Users.Where(u => u.email == email && u.password == password);
             var user = _db.Users.SingleOrDefault(u => u.email == model.email && u.password == model.password);
             if (user == null)
             {
@@ -41,7 +51,7 @@ namespace my_new_app.Controllers
             option.HttpOnly = true;
             option.Expires = DateTimeOffset.UtcNow.AddHours(1);
             Response.Cookies.Append("email", model.email, option);
-    
+
             return Ok(user.username);
         }
 
