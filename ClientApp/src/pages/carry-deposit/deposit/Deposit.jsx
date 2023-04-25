@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Deposit.css";
 import Button from "../../../components/Button";
 import Card from "../components/Card";
 import imageURL from "../../../assets/main-image.png";
 import Notification from "../components/Notification";
-const Deposit = () => {
+const Deposit = ({ user }) => {
   return (
     <div className="Deposit">
       <header>
@@ -12,7 +12,7 @@ const Deposit = () => {
           <div className="grid">
             <div className="panel-left span-2">
               <p>ฝากหิ้ว&ensp;----</p>
-              <h1 className="welcome">ยินดีต้อนรับ "XDOM"</h1>
+              <h1 className="welcome">ยินดีต้อนรับ "{user}"</h1>
               <form action="#" className="box">
                 <textarea
                   name="deposit-item"

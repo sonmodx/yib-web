@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Carry.css";
 import Card from "../components/Card";
 import imageURL from "../../../assets/carry.png";
 import Notification from "../components/Notification";
-const Carry = () => {
+const Carry = ({ user }) => {
   return (
     <div className="Carry">
       <header>
@@ -11,7 +11,7 @@ const Carry = () => {
           <div className="grid">
             <div className="panel-left span-2">
               <p>รับหิ้ว&ensp;----</p>
-              <h1 className="welcome">ยินดีต้อนรับ "XDOM"</h1>
+              <h1 className="welcome">ยินดีต้อนรับ "{user}"</h1>
             </div>
             <Notification />
           </div>

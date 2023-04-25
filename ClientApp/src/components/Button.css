@@ -33,6 +33,10 @@
     background-color: #e68d28;
 }
 
+.Button .white {
+    background-color: #fff;
+}
+
 .Button .secondary {
     border: 3px solid var(--main-clr);
     color: var(--main-clr);

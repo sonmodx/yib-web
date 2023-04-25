@@ -87,8 +87,22 @@
   transform: scaleX(1);
 }
 
+.Navbar .logout-btn {
+  cursor: pointer;
+  align-self: stretch;
+  padding-inline: 0.5em;
+  background-color: transparent;
+  color: var(--primary-font-clr);
+  border: 2px solid var(--primary-font-clr);
+}
+
+/* .Navbar .logout-btn:is(:hover, :focus-visible) {
+  
+} */
+
 .Navbar .dropdown {
   position: relative;
+  border-radius: 1em;
 }
 
 .Navbar .dropdown:is(:focus, :hover) {
@@ -102,6 +116,7 @@
   color: var(--primary-font-clr);
   padding: .25em 1em;
 }
+
 
 .Navbar .dropbtn.open {
   color: var(--main-clr);

@@ -1,15 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logoImage from "../assets/logo.png";
 import "./NavBar.css";
 
-const NavBar = () => {
-  const menus = ["หน้าหลัก", "รับหิ้ว", "ฝากหิ้ว", "เกี่ยวกับ", "เข้าสู่ระบบ"];
-  const linkMenus = ["main", "carry", "deposit", "about", "auth"];
+const NavBar = ({ user, setUser, setIsAuth }) => {
   const [isButtonOpen, setIsButtonOpen] = useState(false);
   const checkClick = useRef(null);
   const checkClickTheme = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.pathname !== "/main" || window.scrollY > 0) {
@@ -70,6 +69,14 @@ const NavBar = () => {
     }
   });
 
+  const handleLogout = () => {
+    localStorage.setItem("isAuth", "false");
+    setIsAuth(false);
+    setUser("");
+    navigate("/auth");
+    //Manage logout
+  };
+
   function handleThemeBtn() {
     const dropBtn = document.querySelector(".dropbtn");
     dropBtn.classList.toggle("open");
@@ -96,7 +103,7 @@ const NavBar = () => {
       <div className="container">
         <div className="wrapper">
           <div className="logo-image">
-            <Link className="link" to={linkMenus?.at(0)}>
+            <Link className="link" to="/main">
               <img src={logoImage} alt="logo" />
             </Link>
           </div>
@@ -104,18 +111,63 @@ const NavBar = () => {
             className={isButtonOpen ? "menu-list open" : "menu-list"}
             ref={checkClick}
           >
-            {menus?.map((menu, idx) => (
-              <li key={idx}>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "link-active" : "link"
+                }
+                to="/main"
+              >
+                หน้าหลัก
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "link-active" : "link"
+                }
+                to={user ? "/deposit" : "/auth"}
+              >
+                ฝากซื้อ
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "link-active" : "link"
+                }
+                to={user ? "/carry" : "/auth"}
+              >
+                รับซื้อ
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "link-active" : "link"
+                }
+                to="/about"
+              >
+                เกี่ยวกับ
+              </NavLink>
+            </li>
+
+            {!user ? (
+              <li>
                 <NavLink
                   className={({ isActive }) =>
                     isActive ? "link-active" : "link"
                   }
-                  to={`/${linkMenus.at(idx)}`}
+                  to="/auth"
                 >
-                  {menu}
+                  เข้าสู่ระบบ
                 </NavLink>
               </li>
-            ))}
+            ) : (
+              <button className="logout-btn" onClick={handleLogout}>
+                ออกจากระบบ
+              </button>
+            )}
           </ul>
           <div className="dropdown" ref={checkClickTheme}>
             <div className="dropbtn" onClick={handleThemeBtn}>
