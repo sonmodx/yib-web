@@ -16,6 +16,12 @@ const App = () => {
       document.body.classList.add("dark-mode");
     }
   }, []);
+
+  const styleNotFound = {
+    color: "var(--primary-font-clr)",
+    textAlign: "center",
+    paddingTop: "20rem",
+  };
   return (
     <div className="App">
       <NavBar user={user} setUser={setUser} />
@@ -26,7 +32,10 @@ const App = () => {
         <Route path="/deposit" element={<Deposit user={user} />} />
         <Route path="/about" element={<About />} />
         <Route path="/auth" element={<Auth setUser={setUser} />} />
-        <Route path="/*" element={<h1>404 NOT FOUND</h1>} />
+        <Route
+          path="/*"
+          element={<h1 style={styleNotFound}>404 NOT FOUND</h1>}
+        />
       </Routes>
     </div>
   );
