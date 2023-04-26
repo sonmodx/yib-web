@@ -3,13 +3,19 @@
     color: var(--secondary-font-clr);
 }
 
-.Deposit textarea {
+.Deposit textarea, input {
     resize: none;
     padding: .5em;
     border: 0;
     outline: transparent;
     background-color: var(--bg-clr);
     color: var(--font-clr);
+}
+
+
+.Deposit hr {
+    background-color: #fff;
+    width: 100%;
 }
 
 .Deposit .container {
@@ -33,7 +39,11 @@
     font-size: var(--primary-fs);
 }
 
-.Deposit .box {
+.Deposit .form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     background-color: var(--bg-clr);
     border-radius: .5em;
     padding: 1em;

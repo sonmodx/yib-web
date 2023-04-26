@@ -1,9 +1,62 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Carry.css";
 import Card from "../components/Card";
 import imageURL from "../../../assets/carry.png";
 import Notification from "../components/Notification";
+import { useNavigate } from "react-router-dom";
 const Carry = ({ user }) => {
+  const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    if (!user) navigate("/auth");
+  }, []);
+
+  const getEveryOrder = async () => {
+    try {
+      const response = await fetch("/food/geteveryorder", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const text = await response.text();
+        const data = JSON.parse(text);
+        // console.log(typeof data);
+        setOrders(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleChangeState = async (e) => {
+    const id = Number(e.target.id);
+    console.log("id", id);
+    try {
+      const response = await fetch(`/food/acceptorder?OrderID=${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const text = await response.text();
+
+      if (response.ok) {
+        console.log("SUCCESS CHANGE STATE");
+        return;
+      }
+      console.log(text);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getEveryOrder();
+  }, [setOrders]);
+
   return (
     <div className="Carry">
       <header>
@@ -26,34 +79,17 @@ const Carry = ({ user }) => {
             </span>
           </h1>
           <div className="grid">
-            <Card
-              title="ข้าวกล่อง"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="ยกเลิก"
-              colorBtn="red"
-              imageURL={imageURL}
-            />
-            <Card
-              title="ข้าวกล่อง"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="รับ"
-              colorBtn="green"
-              imageURL={imageURL}
-            />
-            <Card
-              title="ข้าวกล่อง"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="รับ"
-              colorBtn="green"
-              imageURL={imageURL}
-            />
-            <Card
-              title="ข้าวกล่อง"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="รับ"
-              colorBtn="green"
-              imageURL={imageURL}
-            />
+            {orders?.map((order) => (
+              <Card
+                key={order.id}
+                id={order.id}
+                title={order.header}
+                desc={order.description}
+                status={order.status}
+                imageURL={imageURL}
+                action={handleChangeState}
+              />
+            ))}
           </div>
         </div>
       </section>

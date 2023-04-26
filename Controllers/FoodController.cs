@@ -1,20 +1,19 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using my_new_app.Models;
 
 namespace my_new_app.Controllers
 {
-    public class FoodContoller : Controller
+    public class FoodController : Controller
     {
         private readonly AppDBContext _db;
-        public FoodContoller(AppDBContext db)
+        public FoodController(AppDBContext db)
         {
             _db = db;
         }
 
-        [HttpGet]
+        [HttpPost]
         //รับข้อมูลเกี่ยวกับการฝากซื้อ
-        public IActionResult Fark(string Header, string Description)
+        public IActionResult Fark([FromBody] FarkModel model)
         {
             //รับข้อมูล header เป็นหัวข้อ, Description เป็นคำบรรยายของที่จะฝาก , Status เป็น status ของของที่จะฝาก โดยในที่นี้จะเป็น 0 คือกำลังรอคนมารับ
 
@@ -22,14 +21,16 @@ namespace my_new_app.Controllers
             var owner = Request.Cookies["email"];
             if (owner == null)
             {
-                return BadRequest("No cookie (User didn't login)");
+                return Unauthorized("No cookie (User didn't login)");
             }
             //สร้าง ข้อมูลใหม่ของ user ที่จะถูกเพิ่มไป database
-            FoodModel newFark = new FoodModel(owner, Header, Description, 0);
+            FoodModel newFark = new FoodModel(owner, model.Header!, model.Description!, 0);
             _db.Food.Add(newFark);
             _db.SaveChanges();
+            Console.WriteLine("{0} {1}", model.Header, model.Description);
             return Ok();
         }
+
 
         [HttpGet]
         //ผู้ใช้เรียกข้อมูลเกี่ยวกับของที่ตนเองฝากซื้อ
@@ -43,13 +44,12 @@ namespace my_new_app.Controllers
             {
                 return BadRequest("Error, No User Cookie");
             }
-            //สร้าง list ที่จะเป็นข้อมูลของ user ที่จะส่งไปยัง frontend
-            var myOrder = _db.Food.Where(u => u.Owner == user && (u.Status == 1 || u.Status == 0)).ToList();
+
             //return json ของlist 
-            return Ok(JsonSerializer.Serialize(myOrder));
+            return Ok(_db.Food.Where(u => u.Owner == user && (u.Status == 1 || u.Status == 0)));
         }
 
-        [HttpPost]
+        [HttpGet]
         //ผู้ใช้เรียกข้อมูลของทุกคนที่โพสต์หาคนที่ฝากที่ไม่ใช่ของตนเอง
         public IActionResult Geteveryorder()
         {
@@ -59,21 +59,24 @@ namespace my_new_app.Controllers
                 return BadRequest("Error, No User Cookie");
             }
             //สร้าง list ของข้อมูลของคนที่ฝากซื้อแล้วยังไม่มีคนรับไป
-            var order = _db.Food.Where(u => u.Owner != user && u.Status == 0).ToList();
 
-            return Ok(JsonSerializer.Serialize(order));
+
+            return Ok(_db.Food.Where(u => u.Owner != user));
         }
 
         [HttpPost]
         //ผู้ใช้กดรับฝากซื้อ 
-        public IActionResult Acceptorder(int OrderID)
+        public IActionResult Acceptorder([FromQuery] int OrderID)
         {
             var user = Request.Cookies["email"];
+            Console.WriteLine("{0}", OrderID.GetType());
             if (user == null)
             {
-                return BadRequest("Error, No User Cookie");
+                return Unauthorized("Error, No User Cookie");
             }
+            Console.WriteLine("orderID: {0}", OrderID);
             var picked_order = _db.Food.FirstOrDefault(u => u.Id == OrderID);
+            Console.WriteLine("{0}", picked_order);
             if (picked_order == null)
             {
                 return BadRequest("Error, No Order from the id, Order could be taken");

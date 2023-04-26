@@ -22,6 +22,7 @@ namespace my_new_app.Models
         */
         public FoodModel(string Owner, string Header, string Description, int Status)
         {
+            this.Owner = Owner;
             this.Header = Header;
             this.Description = Description;
             this.Status = Status;

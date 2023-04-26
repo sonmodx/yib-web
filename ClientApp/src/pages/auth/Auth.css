@@ -4,6 +4,11 @@
   font-family: "Poppins", sans-serif;
 }
 
+.Auth .link {
+  color: #fff;
+  border: 1px solid red;
+}
+
 .Auth .container {
     position: relative;
     width: 100%;
@@ -107,12 +112,12 @@
     color: var(--thirdary-font-clr);
   }
   
-  .Auth .social-media {
+  .Auth .menu-home {
     display: flex;
     justify-content: center;
   }
   
-  .Auth .social-icon {
+  .Auth .home-icon {
     height: 46px;
     width: 46px;
     display: flex;
@@ -127,7 +132,7 @@
     transition: 0.3s;
   }
   
-  .Auth .social-icon:hover {
+  .Auth .home-icon:hover {
     color: #55aa55;
     border-color: #55aa55;
   }

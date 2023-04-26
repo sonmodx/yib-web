@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import logoImage from "../assets/logo.png";
 import "./NavBar.css";
 
-const NavBar = ({ user, setUser, setIsAuth }) => {
+const NavBar = ({ user, setUser }) => {
   const [isButtonOpen, setIsButtonOpen] = useState(false);
   const checkClick = useRef(null);
   const checkClickTheme = useRef(null);
@@ -69,12 +69,26 @@ const NavBar = ({ user, setUser, setIsAuth }) => {
     }
   });
 
-  const handleLogout = () => {
-    localStorage.setItem("isAuth", "false");
-    setIsAuth(false);
-    setUser("");
-    navigate("/auth");
-    //Manage logout
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/user/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const text = await res.text();
+      if (!res.ok) {
+        console.log(text);
+        return;
+      }
+      localStorage.removeItem("user");
+      setUser("");
+      navigate("/auth");
+      console.log(text);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   function handleThemeBtn() {
@@ -126,7 +140,7 @@ const NavBar = ({ user, setUser, setIsAuth }) => {
                 className={({ isActive }) =>
                   isActive ? "link-active" : "link"
                 }
-                to={user ? "/deposit" : "/auth"}
+                to="/deposit"
               >
                 ฝากซื้อ
               </NavLink>
@@ -136,7 +150,7 @@ const NavBar = ({ user, setUser, setIsAuth }) => {
                 className={({ isActive }) =>
                   isActive ? "link-active" : "link"
                 }
-                to={user ? "/carry" : "/auth"}
+                to="/carry"
               >
                 รับซื้อ
               </NavLink>

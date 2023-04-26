@@ -1,10 +1,10 @@
 import loginImg from "../../assets/login-text.png";
 import regisImg from "../../assets/regis-text.png";
-import { useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { useRef } from "react";
 
-const Auth = ({ setIsAuth, setUser }) => {
+const Auth = ({ setUser }) => {
   const navigate = useNavigate();
   const passRef = useRef();
   const confirmPassRef = useRef();
@@ -40,8 +40,7 @@ const Auth = ({ setIsAuth, setUser }) => {
         console.log("SUCCESSED LOGIN");
         const username = await response.text();
         console.log("username", username);
-        setIsAuth(true);
-        localStorage.setItem("isAuth", "true");
+        localStorage.setItem("user", username);
         setUser(username);
         navigate("/main");
       }
@@ -78,8 +77,7 @@ const Auth = ({ setIsAuth, setUser }) => {
         console.log("SUCCESSED REGISTER");
         const username = await response.text();
         console.log("username", username);
-        setIsAuth(true);
-        localStorage.setItem("isAuth", "true");
+        localStorage.setItem("user", username);
         setUser(username);
         navigate("/main");
       }
@@ -111,11 +109,11 @@ const Auth = ({ setIsAuth, setUser }) => {
               </div>
               <p className="forgot-text">ลืมรหัสผ่าน</p>
               <input type="submit" value="เข้าสู่ระบบ" className="btn solid" />
-              <p className="social-text">หรือเข้าสู่ระบบด้วย</p>
-              <div className="social-media">
-                <a href="https://www.google.com" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </a>
+              <p className="social-text">หรือกลับหน้าหลัก</p>
+              <div className="menu-home">
+                <Link to="/main" className="link home-icon">
+                  <i className="fa-solid fa-house"></i>
+                </Link>
               </div>
             </form>
             <form
@@ -158,11 +156,12 @@ const Auth = ({ setIsAuth, setUser }) => {
                 />
               </div>
               <input type="submit" className="btn" value="สมัคร" />
-              <p className="social-text">หรือสมัครด้วย</p>
-              <div className="social-media">
-                <a href="https://www.google.com" className="social-icon">
-                  <i className="fab fa-google"></i>
-                </a>
+              <p className="social-text">หรือกลับหน้าหลัก</p>
+
+              <div className="menu-home">
+                <Link to="/main" className="link home-icon">
+                  <i className="fa-solid fa-house"></i>
+                </Link>
               </div>
             </form>
           </div>

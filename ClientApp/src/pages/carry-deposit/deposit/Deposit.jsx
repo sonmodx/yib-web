@@ -1,10 +1,66 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Deposit.css";
 import Button from "../../../components/Button";
 import Card from "../components/Card";
 import imageURL from "../../../assets/main-image.png";
 import Notification from "../components/Notification";
+import { useNavigate } from "react-router-dom";
 const Deposit = ({ user }) => {
+  const navigate = useNavigate();
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    if (!user) navigate("/auth");
+  }, []);
+
+  const getMyOrder = async () => {
+    try {
+      const response = await fetch("/food/getmyorder", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const text = await response.text();
+        const data = JSON.parse(text);
+        // console.log(typeof data);
+        setOrders(data);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getMyOrder();
+  }, [setOrders]);
+
+  const handleFark = async (e) => {
+    e.preventDefault();
+    const header = e.target.header.value;
+    const description = e.target.description.value;
+    try {
+      const response = await fetch("/food/fark", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          header: header,
+          description: description,
+        }),
+      });
+      if (response.ok) {
+        console.log("SUCCESS FARK");
+        console.log(response);
+        e.target.header.value = "";
+        e.target.description.value = "";
+        getMyOrder();
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <div className="Deposit">
       <header>
@@ -13,13 +69,21 @@ const Deposit = ({ user }) => {
             <div className="panel-left span-2">
               <p>ฝากหิ้ว&ensp;----</p>
               <h1 className="welcome">ยินดีต้อนรับ "{user}"</h1>
-              <form action="#" className="box">
+              <form className="form" onSubmit={handleFark}>
+                <input
+                  type="text"
+                  name="header"
+                  placeholder="ฝากเพื่อนซื้อไรดี..."
+                  required
+                />
+                <hr />
                 <textarea
-                  name="deposit-item"
+                  name="description"
                   cols="70"
                   rows="5"
-                  placeholder="อยากฝากเพื่อนซื้ออะไรดี..."
-                ></textarea>
+                  placeholder="รายละเอียดเพิ่มเติม..."
+                  required
+                />
                 <div className="right">
                   <Button text="ส่ง" styleType="primary" type="submit" />
                 </div>
@@ -39,34 +103,15 @@ const Deposit = ({ user }) => {
             </span>
           </h1>
           <div className="grid">
-            <Card
-              title="น้ำ"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="ยกเลิก"
-              colorBtn="red"
-              imageURL={imageURL}
-            />
-            <Card
-              title="น้ำ"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="สำเร็จ"
-              colorBtn="green"
-              imageURL={imageURL}
-            />
-            <Card
-              title="น้ำ"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="กำลังมา"
-              colorBtn="orange"
-              imageURL={imageURL}
-            />
-            <Card
-              title="น้ำ"
-              desc="ฝากซื้อน้ำที่โรงอาหาร ขวดละ 7 บาท อยู่ ECC 801"
-              textBtn="สำเร็จ"
-              colorBtn="green"
-              imageURL={imageURL}
-            />
+            {orders?.map((order) => (
+              <Card
+                key={order.id}
+                title={order.header}
+                desc={order.description}
+                status={order.status}
+                imageURL={imageURL}
+              />
+            ))}
           </div>
         </div>
       </section>

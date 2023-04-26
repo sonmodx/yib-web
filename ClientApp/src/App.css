@@ -6,8 +6,8 @@
   
   :root {
     --navbar-height :80px;
-    --main-clr: #5AB963;
     --font-family : Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --main-clr: #5AB963;
     --primary-font-clr :#fff;
     --secondary-font-clr :#121212;
     --thirdary-font-clr :gray;

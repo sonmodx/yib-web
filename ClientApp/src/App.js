@@ -9,8 +9,8 @@ import Auth from "./pages/auth/Auth";
 import "./App.css";
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"));
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(localStorage.getItem("user"));
+
   useEffect(() => {
     if (localStorage.getItem("dark-mode") === "actived") {
       document.body.classList.add("dark-mode");
@@ -18,17 +18,14 @@ const App = () => {
   }, []);
   return (
     <div className="App">
-      <NavBar user={user} setUser={setUser} setIsAuth={setIsAuth} />
+      <NavBar user={user} setUser={setUser} />
       <Routes>
         <Route path="/" element={<Navigate to="/main" />} />
         <Route path="/main" element={<Home />} />
         <Route path="/carry" element={<Carry user={user} />} />
         <Route path="/deposit" element={<Deposit user={user} />} />
         <Route path="/about" element={<About />} />
-        <Route
-          path="/auth"
-          element={<Auth setIsAuth={setIsAuth} setUser={setUser} />}
-        />
+        <Route path="/auth" element={<Auth setUser={setUser} />} />
         <Route path="/*" element={<h1>404 NOT FOUND</h1>} />
       </Routes>
     </div>

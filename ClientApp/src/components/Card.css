@@ -2,6 +2,7 @@
     padding: 2rem;
     box-shadow: var(--box-shadow);
     border: var(--border-card);
+    border-radius: 1em;
 }
 
 .Card .title {

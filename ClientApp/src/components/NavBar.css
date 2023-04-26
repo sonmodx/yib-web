@@ -94,6 +94,7 @@
   background-color: transparent;
   color: var(--primary-font-clr);
   border: 2px solid var(--primary-font-clr);
+  border-radius: .4em;
 }
 
 /* .Navbar .logout-btn:is(:hover, :focus-visible) {
@@ -188,7 +189,8 @@
       justify-content: center;
       transform: translateY(-100%);
       background-color: var(--main-clr);
-      padding-block: 2em;
+      padding-bottom: 2.5em;
+      padding-top: 5em;
       opacity: 0;
       transition: transform 0.3s ease, opacity 0.4s ease 0.15s;
   }
