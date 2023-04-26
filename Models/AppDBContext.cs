@@ -10,6 +10,6 @@ namespace my_new_app.Models
 
         }
         public DbSet<UserModel> Users { get; set; }
-
+        public DbSet<FoodModel> Food { get; set; }
     }
 }

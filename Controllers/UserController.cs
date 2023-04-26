@@ -54,6 +54,15 @@ namespace my_new_app.Controllers
 
             return Ok(user.username);
         }
-
+        [HttpPost]
+        public IActionResult Logout()
+        {
+            if (Request.Cookies["email"] != null)
+            {
+                Response.Cookies.Delete("email");
+                return Ok("The cookie deleted");
+            }
+            return BadRequest("Have you ever logged in?");
+        }
     }
 }
