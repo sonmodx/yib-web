@@ -4,9 +4,11 @@ import Card from "../components/Card";
 import imageURL from "../../../assets/carry.png";
 import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 const Carry = ({ user }) => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!user) navigate("/auth");
@@ -14,6 +16,8 @@ const Carry = ({ user }) => {
 
   const getEveryOrder = async () => {
     try {
+      setLoading(true);
+      document.body.classList.add("loading");
       const response = await fetch("/food/geteveryorder", {
         method: "GET",
         headers: {
@@ -28,6 +32,9 @@ const Carry = ({ user }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loading");
     }
   };
 
@@ -38,6 +45,7 @@ const Carry = ({ user }) => {
     console.log("after status", newStatus);
     console.log(id);
     try {
+      document.body.classList.add("loading");
       const response = await fetch(
         `/food/updateorder?OrderID=${id}&Status=${newStatus}`,
         {
@@ -57,6 +65,8 @@ const Carry = ({ user }) => {
       console.log(text);
     } catch (err) {
       console.error(err);
+    } finally {
+      document.body.classList.remove("loading");
     }
   };
 
@@ -86,17 +96,21 @@ const Carry = ({ user }) => {
             </span>
           </h1>
           <div className="grid">
-            {orders?.map((order) => (
-              <Card
-                key={order.id}
-                id={order.id}
-                title={order.header}
-                desc={order.description}
-                status={order.status}
-                imageURL={imageURL}
-                action={() => handleUpdateOrder(order.id, order.status)}
-              />
-            ))}
+            {loading ? (
+              <Loading />
+            ) : (
+              orders?.map((order) => (
+                <Card
+                  key={order.id}
+                  id={order.id}
+                  title={order.header}
+                  desc={order.description}
+                  status={order.status}
+                  imageURL={imageURL}
+                  action={() => handleUpdateOrder(order.id, order.status)}
+                />
+              ))
+            )}
           </div>
         </div>
       </section>

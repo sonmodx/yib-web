@@ -71,6 +71,7 @@ const NavBar = ({ user, setUser }) => {
 
   const handleLogout = async () => {
     try {
+      document.body.classList.add("loading");
       const res = await fetch("/user/logout", {
         method: "POST",
         headers: {
@@ -78,6 +79,7 @@ const NavBar = ({ user, setUser }) => {
         },
       });
       const text = await res.text();
+
       if (!res.ok) {
         console.log(text);
         return;
@@ -88,6 +90,8 @@ const NavBar = ({ user, setUser }) => {
       console.log(text);
     } catch (err) {
       console.error(err);
+    } finally {
+      document.body.classList.remove("loading");
     }
   };
 

@@ -2,6 +2,7 @@
     padding-top: var(--navbar-height);
     color: var(--secondary-font-clr);
     text-align: center;
+    padding-bottom: 3rem;
 }
 
 .About header {
@@ -19,12 +20,11 @@
 }
 
 .About .grid {
-    display: grid;
-    place-items: center;
-    grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
-    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
 }
-
 
 .About .ProfileCard {
     display: flex;

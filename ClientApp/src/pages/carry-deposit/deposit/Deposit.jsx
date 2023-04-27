@@ -5,15 +5,19 @@ import Card from "../components/Card";
 import imageURL from "../../../assets/main-image.png";
 import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../../components/Loading";
 const Deposit = ({ user }) => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (!user) navigate("/auth");
   }, []);
 
   const getMyOrder = async () => {
     try {
+      setLoading(true);
+      document.body.classList.add("loading");
       const response = await fetch("/food/getmyorder", {
         method: "GET",
         headers: {
@@ -28,6 +32,9 @@ const Deposit = ({ user }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loading");
     }
   };
 
@@ -40,6 +47,7 @@ const Deposit = ({ user }) => {
     const header = e.target.header.value;
     const description = e.target.description.value;
     try {
+      document.body.classList.add("loading");
       const response = await fetch("/food/fark", {
         method: "POST",
         headers: {
@@ -59,6 +67,8 @@ const Deposit = ({ user }) => {
       }
     } catch (err) {
       console.error(err);
+    } finally {
+      document.body.classList.remove("loading");
     }
   };
 
@@ -66,6 +76,7 @@ const Deposit = ({ user }) => {
     const id = Number(e.target.id);
     console.log("id", id);
     try {
+      document.body.classList.add("loading");
       const response = await fetch(`/food/cancelfark?OrderID=${id}`, {
         method: "POST",
         headers: {
@@ -82,6 +93,8 @@ const Deposit = ({ user }) => {
       console.log(text);
     } catch (err) {
       console.error(err);
+    } finally {
+      document.body.classList.remove("loading");
     }
   };
 
@@ -127,17 +140,21 @@ const Deposit = ({ user }) => {
             </span>
           </h1>
           <div className="grid">
-            {orders?.map((order) => (
-              <Card
-                key={order.id}
-                id={order.id}
-                title={order.header}
-                desc={order.description}
-                status={order.status}
-                imageURL={imageURL}
-                action={cancelOrder}
-              />
-            ))}
+            {loading ? (
+              <Loading />
+            ) : (
+              orders?.map((order) => (
+                <Card
+                  key={order.id}
+                  id={order.id}
+                  title={order.header}
+                  desc={order.description}
+                  status={order.status}
+                  imageURL={imageURL}
+                  action={cancelOrder}
+                />
+              ))
+            )}
           </div>
         </div>
       </section>

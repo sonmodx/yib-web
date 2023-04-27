@@ -2,12 +2,14 @@ import loginImg from "../../assets/login-text.png";
 import regisImg from "../../assets/regis-text.png";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import "./Auth.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Loading from "../../components/Loading";
 
 const Auth = ({ setUser }) => {
   const navigate = useNavigate();
   const passRef = useRef();
   const confirmPassRef = useRef();
+  const [loading, setLoading] = useState(false);
   const registerPage = () => {
     const container = document.querySelector(".Auth .container");
     container?.classList.add("sign-up-mode");
@@ -26,6 +28,8 @@ const Auth = ({ setUser }) => {
     const apiUrl = "/user/login";
 
     try {
+      setLoading(true);
+      document.body.classList.add("loading");
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -46,6 +50,9 @@ const Auth = ({ setUser }) => {
       }
     } catch (err) {
       console.error(err.message);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loading");
     }
   };
 
@@ -61,6 +68,8 @@ const Auth = ({ setUser }) => {
     console.log(username, email, password);
     const apiUrl = "/user/register";
     try {
+      setLoading(true);
+      document.body.classList.add("loading");
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -83,6 +92,9 @@ const Auth = ({ setUser }) => {
       }
     } catch (err) {
       console.error(err.message);
+    } finally {
+      setLoading(false);
+      document.body.classList.remove("loading");
     }
 
     // Do something with the data (e.g. navigate to login page, show success message, etc.)
@@ -108,7 +120,16 @@ const Auth = ({ setUser }) => {
                 />
               </div>
               <p className="forgot-text">ลืมรหัสผ่าน</p>
-              <input type="submit" value="เข้าสู่ระบบ" className="btn solid" />
+              {loading ? (
+                <Loading />
+              ) : (
+                <input
+                  type="submit"
+                  value="เข้าสู่ระบบ"
+                  className="btn solid"
+                />
+              )}
+
               <p className="social-text">หรือกลับหน้าหลัก</p>
               <div className="menu-home">
                 <Link to="/main" className="link home-icon">
@@ -155,7 +176,12 @@ const Auth = ({ setUser }) => {
                   ref={confirmPassRef}
                 />
               </div>
-              <input type="submit" className="btn" value="สมัคร" />
+              {loading ? (
+                <Loading />
+              ) : (
+                <input type="submit" className="btn" value="สมัคร" />
+              )}
+
               <p className="social-text">หรือกลับหน้าหลัก</p>
 
               <div className="menu-home">

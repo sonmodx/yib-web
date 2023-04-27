@@ -3,6 +3,14 @@
     box-shadow: var(--box-shadow);
     border: var(--border-card);
     border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.Card > * {
+    margin-top: 1em;
 }
 
 .Card .title {

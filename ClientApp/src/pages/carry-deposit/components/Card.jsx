@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../../../components/Button";
-import "./Card.css";
 const Card = ({ id, title, desc, status, imageURL, action }) => {
   const [textBtn, setTextBtn] = useState();
   const [colorBtn, setColorBtn] = useState();
@@ -41,12 +40,16 @@ const Card = ({ id, title, desc, status, imageURL, action }) => {
     }
   }, [textBtn, colorBtn, status]);
 
+  const styleButton = {
+    alignSelf: "flex-end",
+  };
+
   return (
     <div className="Card">
       <img src={imageURL} alt="card" />
       <p className="title">{title}</p>
       <p className="description">{desc}</p>
-      <div className="right">
+      <div style={styleButton}>
         <Button
           id={id}
           text={textBtn}

@@ -33,6 +33,10 @@
     --box-shadow : none;
     --font-clr :#fff;
   }
+
+  body.loading {
+    cursor: wait;
+  }
   
   .App {
     min-height: 100vh;

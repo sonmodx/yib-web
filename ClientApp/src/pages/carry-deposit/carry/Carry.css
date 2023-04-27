@@ -24,9 +24,7 @@
     font-size: var(--primary-fs);
 }
 
-.Carry .right {
-    text-align: end;
-}
+
 
 .Carry header {
     background-color: var(--main-clr);
