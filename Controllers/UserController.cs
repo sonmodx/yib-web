@@ -18,7 +18,6 @@ namespace my_new_app.Controllers
         public IActionResult Register([FromBody] UserModel newUser)
         {
             var isUserExist = _db.Users.Any(u => u.email == newUser.email || u.username == newUser.username);
-            Console.WriteLine("{0} {1} {2}", newUser.Id, newUser.email, newUser.password);
             // ยังไม่มี user
             if (!isUserExist)
             {
@@ -29,7 +28,7 @@ namespace my_new_app.Controllers
                 option.Secure = true;
                 option.HttpOnly = true;
                 option.Expires = DateTimeOffset.UtcNow.AddHours(1);
-                Response.Cookies.Append("email", newUser.email, option);
+                Response.Cookies.Append("UserID", Base64Encode(newUser.email), option);
                 return Ok(newUser.username);
             }
             return BadRequest("Username or Email Exist");
@@ -38,8 +37,6 @@ namespace my_new_app.Controllers
         [HttpPost]
         public IActionResult Login([FromBody] LoginModel model)
         {
-            Console.WriteLine("{0} {1} ", model.email, model.password);
-
             var user = _db.Users.SingleOrDefault(u => u.email == model.email && u.password == model.password);
             if (user == null)
             {
@@ -50,19 +47,23 @@ namespace my_new_app.Controllers
             option.Secure = true;
             option.HttpOnly = true;
             option.Expires = DateTimeOffset.UtcNow.AddHours(1);
-            Response.Cookies.Append("email", model.email, option);
+            Response.Cookies.Append("UserID", Base64Encode(model.email), option);
 
             return Ok(user.username);
         }
         [HttpPost]
         public IActionResult Logout()
         {
-            if (Request.Cookies["email"] != null)
+            if (Request.Cookies["UserID"] != null)
             {
-                Response.Cookies.Delete("email");
+                Response.Cookies.Delete("UserID");
                 return Ok("The cookie deleted");
             }
             return BadRequest("Have you ever logged in?");
         }
+        public static string Base64Encode(string input){
+            return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(input));
+        }
+       
     }
 }
