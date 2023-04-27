@@ -61,6 +61,30 @@ const Deposit = ({ user }) => {
       console.error(err);
     }
   };
+
+  const cancelOrder = async (e) => {
+    const id = Number(e.target.id);
+    console.log("id", id);
+    try {
+      const response = await fetch(`/food/cancelfark?OrderID=${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const text = await response.text();
+
+      if (response.ok) {
+        console.log("SUCCESS CANCEL ORDER");
+        getMyOrder();
+        return;
+      }
+      console.log(text);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
     <div className="Deposit">
       <header>
@@ -106,10 +130,12 @@ const Deposit = ({ user }) => {
             {orders?.map((order) => (
               <Card
                 key={order.id}
+                id={order.id}
                 title={order.header}
                 desc={order.description}
                 status={order.status}
                 imageURL={imageURL}
+                action={cancelOrder}
               />
             ))}
           </div>

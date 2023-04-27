@@ -32,7 +32,7 @@ namespace my_new_app.Controllers
         }
         [HttpPost]
         //ผู้ใช้ยกเลิกการฝากซื้อ
-        public IActionResult CancleFark([FromQuery] int OrderID)
+        public IActionResult CancelFark([FromQuery] int OrderID)
         {
             var owner = Request.Cookies["email"];
             if (owner == null)
@@ -91,7 +91,7 @@ namespace my_new_app.Controllers
             }
             Console.WriteLine("orderID: {0}", OrderID);
             //หาข้อมูลจาก OrderID โดยที่จะต้องยังไม่มีผู้รับ order ไป
-            var picked_order = _db.Food.FirstOrDefault(u => u.Id == OrderID && u.RiderEmail == null);
+            var picked_order = _db.Food.FirstOrDefault(u => u.Id == OrderID && (u.RiderEmail == null || u.RiderEmail == user));
             Console.WriteLine("{0}", picked_order);
             if (picked_order == null)
             {

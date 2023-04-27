@@ -31,20 +31,27 @@ const Carry = ({ user }) => {
     }
   };
 
-  const handleChangeState = async (e) => {
-    const id = Number(e.target.id);
-    console.log("id", id);
+  const handleUpdateOrder = async (id, status) => {
+    console.log("before status", status);
+
+    const newStatus = Number(status) == 0 ? 1 : 0;
+    console.log("after status", newStatus);
+    console.log(id);
     try {
-      const response = await fetch(`/food/acceptorder?OrderID=${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `/food/updateorder?OrderID=${id}&Status=${newStatus}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const text = await response.text();
 
       if (response.ok) {
         console.log("SUCCESS CHANGE STATE");
+        getEveryOrder();
         return;
       }
       console.log(text);
@@ -87,7 +94,7 @@ const Carry = ({ user }) => {
                 desc={order.description}
                 status={order.status}
                 imageURL={imageURL}
-                action={handleChangeState}
+                action={() => handleUpdateOrder(order.id, order.status)}
               />
             ))}
           </div>
