@@ -1,4 +1,63 @@
 .About {
     padding-top: var(--navbar-height);
     color: var(--secondary-font-clr);
+    text-align: center;
+}
+
+.About header {
+    padding-block: 1em;
+    font-size: var(--primary-fs);
+    background-color: var(--main-clr);
+    margin-bottom: 2rem;
+    color: var(--primary-font-clr);
+    width: 100%;
+}
+
+.About .container {
+    max-width: 95%;
+    margin-inline: auto;
+}
+
+.About .grid {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+    gap: 1rem;
+}
+
+
+.About .ProfileCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    max-width: 16rem;
+    box-shadow: var(--box-shadow);
+    border: var(--border-card);
+    border-radius: 1em;
+}
+
+.About .ProfileCard > img{
+    border-radius: 50%;
+    padding: 1rem;
+    max-width: 256px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.About .ProfileCard .nameID {
+    color: var(--font-clr);
+    font-size: var(--middle-fs);
+    padding-block: .25em;
+}
+
+.About .ProfileCard .name {
+    color: var(--secondary-font-clr);
+    font-size: var(--secondary-fs);
+}
+
+.About .ProfileCard .role {
+    color: var(--thirdary-font-clr);
+    font-size: var(--thirdary-fs);
 }

@@ -13,6 +13,7 @@
     --thirdary-font-clr :gray;
     --input-font-clr : var(--secondary-font-clr);
     --primary-fs : clamp(2rem, 1rem + 2vw, 4rem);
+    --middle-fs : clamp(1rem, 1rem + 2vw, 2rem);
     --secondary-fs : clamp(0.75rem, 1rem + 1vw, 1.5rem);
     --thirdary-fs : clamp(0.5rem, 1rem + 1vw, 1rem);
     --bg-clr : #fff;

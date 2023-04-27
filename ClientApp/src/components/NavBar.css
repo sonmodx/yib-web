@@ -195,6 +195,10 @@
       transition: transform 0.3s ease, opacity 0.4s ease 0.15s;
   }
 
+  .Navbar .menu-list > .logout-btn{
+    align-self: center;
+  }
+
   .Navbar .menu-list.open {
       transform: translateY(0%);
       opacity: 1;
