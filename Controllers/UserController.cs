@@ -40,7 +40,6 @@ namespace my_new_app.Controllers
             var user = _db.Users.SingleOrDefault(u => u.email == model.email && u.password == model.password);
             if (user == null)
             {
-                Console.WriteLine("I'm here");
                 return BadRequest();
             }
             var option = new CookieOptions();
@@ -48,7 +47,6 @@ namespace my_new_app.Controllers
             option.HttpOnly = true;
             option.Expires = DateTimeOffset.UtcNow.AddHours(1);
             Response.Cookies.Append("UserID", Base64Encode(model.email), option);
-
             return Ok(user.username);
         }
         [HttpPost]
@@ -61,9 +59,10 @@ namespace my_new_app.Controllers
             }
             return BadRequest("Have you ever logged in?");
         }
-        public static string Base64Encode(string input){
+        private static string Base64Encode(string input)
+        {
             return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(input));
         }
-       
+
     }
 }
