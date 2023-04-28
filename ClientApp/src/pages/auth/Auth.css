@@ -9,6 +9,11 @@
   border: 1px solid red;
 }
 
+.Auth .error {
+  color: red;
+  font-size: var(--thirdary-fs);
+}
+
 .Auth .container {
     position: relative;
     width: 100%;

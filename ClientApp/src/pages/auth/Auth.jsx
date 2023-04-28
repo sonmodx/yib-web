@@ -1,6 +1,6 @@
 import loginImg from "../../assets/login-text.png";
 import regisImg from "../../assets/regis-text.png";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { useRef, useState } from "react";
 import Loading from "../../components/Loading";
@@ -9,19 +9,26 @@ const Auth = ({ setUser }) => {
   const navigate = useNavigate();
   const passRef = useRef();
   const confirmPassRef = useRef();
+  const loginFormRef = useRef();
+  const registerFormRef = useRef();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   const registerPage = () => {
     const container = document.querySelector(".Auth .container");
     container?.classList.add("sign-up-mode");
+    loginFormRef.current.reset();
+    setError(false);
   };
 
   const loginPage = () => {
     const container = document.querySelector(".Auth .container");
     container?.classList.remove("sign-up-mode");
+    registerFormRef.current.reset();
+    setError(false);
   };
   const loginHandler = async (event) => {
     event.preventDefault();
-
     const email = event.target.email.value;
     const password = event.target.password.value;
     console.log(email, password);
@@ -40,16 +47,19 @@ const Auth = ({ setUser }) => {
           password: password,
         }),
       });
-      if (response.ok) {
-        console.log("SUCCESSED LOGIN");
-        const username = await response.text();
-        console.log("username", username);
-        localStorage.setItem("user", username);
-        setUser(username);
-        navigate("/main");
+      if (!response.ok) {
+        setError(true);
+        return;
       }
+      console.log("SUCCESSED LOGIN");
+      const username = await response.text();
+      console.log("username", username);
+      localStorage.setItem("user", username);
+      setUser(username);
+      navigate("/main");
     } catch (err) {
       console.error(err.message);
+      setError(true);
     } finally {
       setLoading(false);
       document.body.classList.remove("loading");
@@ -60,6 +70,7 @@ const Auth = ({ setUser }) => {
     event.preventDefault();
     if (confirmPassRef.current.value !== passRef.current.value) {
       console.log("CONFIRM PASSWORD INCORRECT!");
+      setError(true);
       return;
     }
     const username = event.target.username.value;
@@ -70,6 +81,7 @@ const Auth = ({ setUser }) => {
     try {
       setLoading(true);
       document.body.classList.add("loading");
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -82,16 +94,20 @@ const Auth = ({ setUser }) => {
           password: password,
         }),
       });
-      if (response.ok) {
-        console.log("SUCCESSED REGISTER");
-        const username = await response.text();
-        console.log("username", username);
-        localStorage.setItem("user", username);
-        setUser(username);
-        navigate("/main");
+      if (!response.ok) {
+        setError(true);
+        return;
       }
+
+      console.log("SUCCESSED REGISTER");
+      const user = await response.text();
+      console.log("username", user);
+      localStorage.setItem("user", user);
+      setUser(user);
+      navigate("/main");
     } catch (err) {
       console.error(err.message);
+      setError(true);
     } finally {
       setLoading(false);
       document.body.classList.remove("loading");
@@ -104,7 +120,12 @@ const Auth = ({ setUser }) => {
       <div className="container">
         <div className="forms-container">
           <div className="signin-signup">
-            <form action="#" onSubmit={loginHandler} className="sign-in-form">
+            <form
+              action="#"
+              onSubmit={loginHandler}
+              className="sign-in-form"
+              ref={loginFormRef}
+            >
               <h2 className="title">เข้าสู่ระบบ</h2>
               <div className="input-field">
                 <i className="fas fa-user"></i>
@@ -119,7 +140,7 @@ const Auth = ({ setUser }) => {
                   required
                 />
               </div>
-              <p className="forgot-text">ลืมรหัสผ่าน</p>
+              {error && <p className="error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>}
               {loading ? (
                 <Loading />
               ) : (
@@ -141,6 +162,7 @@ const Auth = ({ setUser }) => {
               action="#"
               onSubmit={registerHandler}
               className="sign-up-form"
+              ref={registerFormRef}
             >
               <h2 className="title">สมัครสมาชิก</h2>
               <div className="input-field">
@@ -176,6 +198,7 @@ const Auth = ({ setUser }) => {
                   ref={confirmPassRef}
                 />
               </div>
+              {error && <p className="error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>}
               {loading ? (
                 <Loading />
               ) : (

@@ -2,6 +2,7 @@ import React from "react";
 import "./About.css";
 import pepperImg from "./image/pepper.png";
 import nonImg from "./image/non.png";
+import modxImg from "./image/modx.jpg";
 const ProfileCard = ({ srcImg, name, role, nameID }) => {
   return (
     <div className="ProfileCard">
@@ -20,7 +21,7 @@ const About = () => {
       <div className="container">
         <div className="grid">
           <ProfileCard
-            srcImg={pepperImg}
+            srcImg={modxImg}
             nameID="64011281"
             name="นายศัตชล หอมหวล"
             role="Frontend"
