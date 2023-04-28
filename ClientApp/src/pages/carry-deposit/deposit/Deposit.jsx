@@ -6,7 +6,7 @@ import imageURL from "../../../assets/main-image.png";
 import Notification from "../components/Notification";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../../components/Loading";
-const Deposit = ({ user }) => {
+const Deposit = ({ user, username }) => {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -72,8 +72,8 @@ const Deposit = ({ user }) => {
     }
   };
 
-  const cancelOrder = async (e) => {
-    const id = Number(e.target.id);
+  const cancelOrder = async (id, status) => {
+    if (status !== 0) return;
     console.log("id", id);
     try {
       document.body.classList.add("loading");
@@ -98,6 +98,31 @@ const Deposit = ({ user }) => {
     }
   };
 
+  const acceptOrder = async (id) => {
+    console.log("id", id);
+    try {
+      document.body.classList.add("loading");
+      const response = await fetch(`/food/acceptfark?OrderID=${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const text = await response.text();
+
+      if (response.ok) {
+        console.log("SUCCESS ACCEPT ORDER");
+        getMyOrder();
+        return;
+      }
+      console.log(text);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      document.body.classList.remove("loading");
+    }
+  };
+
   return (
     <div className="Deposit">
       <header>
@@ -105,7 +130,7 @@ const Deposit = ({ user }) => {
           <div className="grid">
             <div className="panel-left span-2">
               <p>ฝากหิ้ว&ensp;----</p>
-              <h1 className="welcome">ยินดีต้อนรับ "{user}"</h1>
+              <h1 className="welcome">ยินดีต้อนรับ "{username}"</h1>
               <form className="form" onSubmit={handleFark}>
                 <input
                   type="text"
@@ -127,7 +152,7 @@ const Deposit = ({ user }) => {
               </form>
             </div>
 
-            <Notification />
+            <Notification setLoading={setLoading} />
           </div>
         </div>
       </header>
@@ -151,7 +176,8 @@ const Deposit = ({ user }) => {
                   desc={order.description}
                   status={order.status}
                   imageURL={imageURL}
-                  action={cancelOrder}
+                  action={() => cancelOrder(order.id, order.status)}
+                  actionSuccess={() => acceptOrder(order.id)}
                 />
               ))
             )}

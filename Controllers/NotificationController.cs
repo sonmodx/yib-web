@@ -11,7 +11,7 @@ namespace my_new_app.Controllers
             _db = db;
         }
         [HttpPost]
-        public IActionResult CreateNoti([FromQuery] string OrderID, [FromQuery] int status)
+        public IActionResult CreateNoti([FromQuery] int OrderID, [FromQuery] int status)
         {
             //สร้างข้อความ notification จากการที่มีคนไปกดรับซื้อ
             var user = CheckUser(Request.Cookies["UserID"]);
@@ -19,10 +19,10 @@ namespace my_new_app.Controllers
             {
                 return Unauthorized("Cookie Error");
             }
-            var Reciver = _db.Food.FirstOrDefault(u => u.Email == user);
-            if (Reciver == null )
+            var Reciver = _db.Food.FirstOrDefault(u => u.Id == OrderID);
+            if (Reciver == null)
             {
-                return BadRequest("Error,No Order ID in DB");
+                return NotFound("Error,No Order ID in DB");
             }
             var username = _db.Users.FirstOrDefault(u => u.email == user)!.username;
             string yibaction;
@@ -31,7 +31,7 @@ namespace my_new_app.Controllers
                 case 0:
                     yibaction = "ได้ทำการวาง";
                     break;
-                case 1 :
+                case 1:
                     yibaction = " ได้ทำการหยิบ ";
                     break;
                 default:

@@ -5,7 +5,7 @@ import "./Auth.css";
 import { useRef, useState } from "react";
 import Loading from "../../components/Loading";
 
-const Auth = ({ setUser }) => {
+const Auth = ({ setUser, setUsername }) => {
   const navigate = useNavigate();
   const passRef = useRef();
   const confirmPassRef = useRef();
@@ -54,8 +54,9 @@ const Auth = ({ setUser }) => {
       console.log("SUCCESSED LOGIN");
       const username = await response.text();
       console.log("username", username);
-      localStorage.setItem("user", username);
       setUser(username);
+      localStorage.setItem("username", username);
+      setUsername(username);
       navigate("/main");
     } catch (err) {
       console.error(err.message);
@@ -102,8 +103,10 @@ const Auth = ({ setUser }) => {
       console.log("SUCCESSED REGISTER");
       const user = await response.text();
       console.log("username", user);
-      localStorage.setItem("user", user);
+      localStorage.setItem("username", username);
       setUser(user);
+
+      setUsername(user);
       navigate("/main");
     } catch (err) {
       console.error(err.message);

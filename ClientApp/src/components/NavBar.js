@@ -84,7 +84,7 @@ const NavBar = ({ user, setUser }) => {
         console.log(text);
         return;
       }
-      localStorage.removeItem("user");
+      localStorage.removeItem("username");
       setUser("");
       navigate("/auth");
       console.log(text);

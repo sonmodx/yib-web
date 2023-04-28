@@ -1,0 +1,36 @@
+.Card {
+    position: relative;
+}
+
+.Card .right {
+    align-self: flex-end;
+}
+
+.Card .group {
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Card .success-btn {
+    position: absolute;
+    cursor: pointer;
+    align-self: stretch;
+    border-radius: 50%;
+    width: 40px;
+    aspect-ratio: 1/1;
+    top: 0;
+    right: 0;
+    transform: translate(50%,-50%);
+    transition: 0.125s ease-in-out;
+    color: var(--main-clr);
+    background-color: transparent;
+    font-size: larger;
+    border: 3px solid var(--main-clr);
+}
+
+.Card .success-btn:hover {
+    background-color: var(--main-clr);
+    color: var(--primary-font-clr);
+}

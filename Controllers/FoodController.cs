@@ -29,7 +29,7 @@ namespace my_new_app.Controllers
             _db.SaveChanges();
             return Ok();
         }
-        
+
         [HttpPost]
         //ผู้ใช้ยกเลิกการฝากซื้อ
         public IActionResult CancelFark([FromQuery] int OrderID)
@@ -52,7 +52,7 @@ namespace my_new_app.Controllers
         }
         [HttpPost]
         //ผู้ใช้กดรับอาหาร,อาหารมาถึงแล้ว
-        public IActionResult AcceptFart([FromQuery] int OrderID)
+        public IActionResult AcceptFark([FromQuery] int OrderID)
         {
             var owner = CheckUser(Request.Cookies["UserID"]);
             if (owner == null)
@@ -75,7 +75,9 @@ namespace my_new_app.Controllers
             {
                 return Unauthorized("Cookie Error");
             }
-            return Ok(_db.Food.Where(u => u.Email == user && (u.Status == 1 || u.Status == 0)));
+            var CompleteOrder = _db.Food.Where(u => u.Email == user && u.Status == 2);
+            var PendingOrder = _db.Food.Where(u => u.Email == user && u.Status != 2);
+            return Ok(PendingOrder.Concat(CompleteOrder));
         }
 
         [HttpGet]

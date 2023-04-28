@@ -6,11 +6,14 @@ import Carry from "./pages/carry-deposit/carry/Carry";
 import Deposit from "./pages/carry-deposit/deposit/Deposit";
 import About from "./pages/about/About";
 import Auth from "./pages/auth/Auth";
+import Cookies from "js-cookie";
 import "./App.css";
 
 const App = () => {
-  const [user, setUser] = useState(localStorage.getItem("user"));
+  const [user, setUser] = useState(Cookies.get("UserID"));
+  const [username, setUsername] = useState(localStorage.getItem("username"));
 
+  console.log(Cookies.get("UserID"));
   useEffect(() => {
     if (localStorage.getItem("dark-mode") === "actived") {
       document.body.classList.add("dark-mode");
@@ -28,10 +31,19 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Navigate to="/main" />} />
         <Route path="/main" element={<Home />} />
-        <Route path="/carry" element={<Carry user={user} />} />
-        <Route path="/deposit" element={<Deposit user={user} />} />
+        <Route
+          path="/carry"
+          element={<Carry user={user} username={username} />}
+        />
+        <Route
+          path="/deposit"
+          element={<Deposit user={user} username={username} />}
+        />
         <Route path="/about" element={<About />} />
-        <Route path="/auth" element={<Auth setUser={setUser} />} />
+        <Route
+          path="/auth"
+          element={<Auth setUser={setUser} setUsername={setUsername} />}
+        />
         <Route
           path="/*"
           element={<h1 style={styleNotFound}>404 NOT FOUND</h1>}

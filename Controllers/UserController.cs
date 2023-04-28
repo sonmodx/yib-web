@@ -26,7 +26,7 @@ namespace my_new_app.Controllers
 
                 var option = new CookieOptions();
                 option.Secure = true;
-                option.HttpOnly = true;
+                option.HttpOnly = false;
                 option.Expires = DateTimeOffset.UtcNow.AddHours(1);
                 Response.Cookies.Append("UserID", Base64Encode(newUser.email), option);
                 return Ok(newUser.username);
@@ -44,7 +44,7 @@ namespace my_new_app.Controllers
             }
             var option = new CookieOptions();
             option.Secure = true;
-            option.HttpOnly = true;
+            option.HttpOnly = false;
             option.Expires = DateTimeOffset.UtcNow.AddHours(1);
             Response.Cookies.Append("UserID", Base64Encode(model.email), option);
             return Ok(user.username);
