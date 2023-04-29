@@ -24,7 +24,6 @@ namespace my_new_app.Controllers
             {
                 return NotFound("Error,No Order ID in DB");
             }
-            var username = _db.Users.FirstOrDefault(u => u.email == user)!.username;
             string yibaction;
             switch (status)
             {
@@ -37,7 +36,7 @@ namespace my_new_app.Controllers
                 default:
                     return BadRequest("Status Error");
             }
-            string Message = username + yibaction + Reciver.Header;
+            string Message = Reciver.RaiderUsername + yibaction + Reciver.Header + " ของ " + Reciver.Username;
             _db.Noti.Add(new NotificationModel(user, Reciver.Email, Message));
             _db.SaveChanges();
             return Ok(Message);
@@ -50,7 +49,7 @@ namespace my_new_app.Controllers
             {
                 return Unauthorized("Cookie Error");
             }
-            return Ok(_db.Noti.Where(u => u.ReceverEmail == user).OrderByDescending(n => n.TimeCreate));
+            return Ok(_db.Noti.Where(u => u.ReceverEmail == user).OrderByDescending(n => n.TimeCreate).Select(f => new { f.Id, f.Message }));
         }
         private static string? CheckUser(string? user)
         {

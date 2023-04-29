@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Notification.css";
 
-const Notification = ({ setLoading }) => {
+const Notification = () => {
   const [lists, setLists] = useState([]);
   console.log(lists);
   useEffect(() => {
     const getLists = async () => {
       try {
-        setLoading(true);
         document.body.classList.add("loading");
         const response = await fetch("/notification/getmynoti", {
           method: "GET",
@@ -19,12 +18,18 @@ const Notification = ({ setLoading }) => {
           const text = await response.text();
           const data = JSON.parse(text);
           // console.log(typeof data);
-          setLists(data);
+          setLists((prevOrders) => {
+            if (JSON.stringify(prevOrders) !== JSON.stringify(data)) {
+              console.log(prevOrders);
+              return data;
+            } else {
+              return prevOrders;
+            }
+          });
         }
       } catch (err) {
         console.error(err);
       } finally {
-        setLoading(false);
         document.body.classList.remove("loading");
       }
     };

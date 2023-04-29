@@ -19,12 +19,13 @@ namespace my_new_app.Controllers
 
             //รับข้อมูลผู้ใช้จาก cookie
             var owner = CheckUser(Request.Cookies["UserID"]);
-            if (owner == null)
+            var username = _db.Users.SingleOrDefault(u => u.email == owner);
+            if (owner == null || username == null)
             {
-                return Unauthorized("Cookie Error");
+                return Unauthorized("Cookie or User Error");
             }
             //สร้าง ข้อมูลใหม่ของ user ที่จะถูกเพิ่มไป database
-            FoodModel newFark = new FoodModel(owner, model.Header!, model.Description!, 0);
+            FoodModel newFark = new FoodModel(username.username, owner, model.Header!, model.Description!, 0);
             _db.Food.Add(newFark);
             _db.SaveChanges();
             return Ok();
@@ -60,6 +61,10 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie Error");
             }
             var myorder = _db.Food.FirstOrDefault(u => u.Id == OrderID && u.RiderEmail != null);
+            if (myorder == null)
+            {
+                return NotFound("Error, Order Not Found");
+            }
             myorder.Status = 2;
             _db.SaveChanges();
             return Ok();
@@ -77,7 +82,7 @@ namespace my_new_app.Controllers
             }
             var CompleteOrder = _db.Food.Where(u => u.Email == user && u.Status == 2);
             var PendingOrder = _db.Food.Where(u => u.Email == user && u.Status != 2);
-            return Ok(PendingOrder.Concat(CompleteOrder));
+            return Ok(PendingOrder.Concat(CompleteOrder).Select(f => new { f.Id, f.Username, f.Header, f.Description, f.Status, f.RaiderUsername }));
         }
 
         [HttpGet]
@@ -90,7 +95,7 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie Error");
             }
             //สร้าง list ของข้อมูลของคนที่ฝากซื้อแล้วยังไม่มีคนรับไป หรือที่ตนกดรับไป
-            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)));
+            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)).Select(f => new { f.Id, f.Username, f.Header, f.Description, f.Status }));
         }
 
         [HttpPost]
@@ -104,17 +109,20 @@ namespace my_new_app.Controllers
             }
             //หาข้อมูลจาก OrderID โดยที่จะต้องยังไม่มีผู้รับ order ไป
             var picked_order = _db.Food.FirstOrDefault(u => u.Id == OrderID && (u.RiderEmail == null || u.RiderEmail == user));
-            if (picked_order == null)
+            var username = _db.Users.SingleOrDefault(u => u.email == user);
+            if (picked_order == null || username == null)
             {
-                return BadRequest("Error, No Order from the id, Order could be taken");
+                return NotFound("Error, No Order from the id, Order could be taken,Or no User in DB");
             }
             switch (Status)
             {
                 case 1:
                     picked_order.RiderEmail = user;
+                    picked_order.RaiderUsername = username.username;
                     break;
                 case 0:
                     picked_order.RiderEmail = null;
+                    picked_order.RaiderUsername = null;
                     break;
                 default:
                     return BadRequest("Error, Status code from frontend");

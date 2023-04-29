@@ -12,20 +12,20 @@ const Auth = ({ setUser, setUsername }) => {
   const loginFormRef = useRef();
   const registerFormRef = useRef();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const registerPage = () => {
     const container = document.querySelector(".Auth .container");
     container?.classList.add("sign-up-mode");
     loginFormRef.current.reset();
-    setError(false);
+    setError(null);
   };
 
   const loginPage = () => {
     const container = document.querySelector(".Auth .container");
     container?.classList.remove("sign-up-mode");
     registerFormRef.current.reset();
-    setError(false);
+    setError(null);
   };
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -47,8 +47,9 @@ const Auth = ({ setUser, setUsername }) => {
           password: password,
         }),
       });
+
       if (!response.ok) {
-        setError(true);
+        setError("อีเมลหรือรหัสผ่านไม่ถูกต้อง");
         return;
       }
       console.log("SUCCESSED LOGIN");
@@ -60,7 +61,7 @@ const Auth = ({ setUser, setUsername }) => {
       navigate("/main");
     } catch (err) {
       console.error(err.message);
-      setError(true);
+      setError(err.message);
     } finally {
       setLoading(false);
       document.body.classList.remove("loading");
@@ -71,7 +72,7 @@ const Auth = ({ setUser, setUsername }) => {
     event.preventDefault();
     if (confirmPassRef.current.value !== passRef.current.value) {
       console.log("CONFIRM PASSWORD INCORRECT!");
-      setError(true);
+      setError("ยืนยันรหัสผ่านไม่ตรงกับรหัสผ่าน");
       return;
     }
     const username = event.target.username.value;
@@ -96,7 +97,8 @@ const Auth = ({ setUser, setUsername }) => {
         }),
       });
       if (!response.ok) {
-        setError(true);
+        const text = await response.text();
+        setError(text);
         return;
       }
 
@@ -110,7 +112,7 @@ const Auth = ({ setUser, setUsername }) => {
       navigate("/main");
     } catch (err) {
       console.error(err.message);
-      setError(true);
+      setError(err.message);
     } finally {
       setLoading(false);
       document.body.classList.remove("loading");
@@ -143,7 +145,7 @@ const Auth = ({ setUser, setUsername }) => {
                   required
                 />
               </div>
-              {error && <p className="error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>}
+              {error && <p className="error">{error}</p>}
               {loading ? (
                 <Loading />
               ) : (
@@ -172,8 +174,9 @@ const Auth = ({ setUser, setUsername }) => {
                 <i className="fas fa-user"></i>
                 <input
                   type="text"
-                  placeholder="บัญชีผู้ใช้"
+                  placeholder="บัญชีผู้ใช้ (ความยาวไม่เกิน 14 ตัว)"
                   name="username"
+                  maxLength="14"
                   required
                 />
               </div>
@@ -201,7 +204,7 @@ const Auth = ({ setUser, setUsername }) => {
                   ref={confirmPassRef}
                 />
               </div>
-              {error && <p className="error">อีเมลหรือรหัสผ่านไม่ถูกต้อง</p>}
+              {error && <p className="error">{error}</p>}
               {loading ? (
                 <Loading />
               ) : (
