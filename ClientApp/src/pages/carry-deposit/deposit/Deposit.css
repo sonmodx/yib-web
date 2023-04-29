@@ -82,6 +82,7 @@
     grid-column: span 2;
 }
 
+<<<<<<< Updated upstream
 .Deposit .choosemenu {
     width: min(90%, 65rem);
     margin-inline: auto;
@@ -106,6 +107,23 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+=======
+.Deposit .control {
+    font-size: 1em;
+    text-align: center;
+}
+
+.Deposit .control_menu {
+    font-size: 0.5em;
+    text-align: left;
+}
+
+.Deposit .number {
+    font-size: 0.5em;
+    text-align: left;
+    padding: 10px 8px;
+    color: grey;
+>>>>>>> Stashed changes
 }
 
 @media screen and (max-width : 800px){
