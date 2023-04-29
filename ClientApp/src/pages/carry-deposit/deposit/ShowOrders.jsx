@@ -5,6 +5,7 @@ import imageURL from "../../../assets/main-image.png";
 const ShowOrders = ({ getMyOrder }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  console.log(orders);
   useEffect(() => {
     const getData = async () => {
       const data = await getMyOrder();
@@ -83,6 +84,8 @@ const ShowOrders = ({ getMyOrder }) => {
           desc={order.description}
           status={order.status}
           imageURL={imageURL}
+          name={order.username}
+          raiderUsername={order.raiderUsername}
           action={() => {
             cancelOrder(order.id, order.status);
           }}

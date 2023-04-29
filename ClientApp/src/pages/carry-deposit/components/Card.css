@@ -13,6 +13,11 @@
     align-items: center;
 }
 
+.Card .name {
+    color: var(--thirdary-font-clr);
+    font-size: var(--thirdary-fs);
+}
+
 .Card .success-btn {
     position: absolute;
     cursor: pointer;

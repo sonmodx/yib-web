@@ -23,33 +23,33 @@ const About = () => {
       <div className="container">
         <div className="grid">
           <ProfileCard
-            srcImg={nonImg}
-            nameID="64011281"
-            name="นายศัตชล หอมหวล"
-            role="Frontend"
+            srcImg={topazImg}
+            nameID="64010959"
+            name="อธิป ซื่อมาก"
+            role="UX/UI"
           />
           <ProfileCard
             srcImg={pepperImg}
-            nameID="64011281"
-            name="นายศัตชล หอมหวล"
-            role="Frontend"
+            nameID="64011148"
+            name="ธันวา ศักดารัตน์"
+            role="UX/UI"
           />
           <ProfileCard
-            srcImg={topazImg}
+            srcImg={nonImg}
+            nameID="64011160"
+            name="นายนนทัช มุกลีมาศ"
+            role="Backend"
+          />
+          <ProfileCard
+            srcImg={modxImg}
             nameID="64011281"
             name="นายศัตชล หอมหวล"
             role="Frontend"
           />
           <ProfileCard
             srcImg={paoImg}
-            nameID="64011281"
-            name="นายศัตชล หอมหวล"
-            role="Frontend"
-          />
-          <ProfileCard
-            srcImg={modxImg}
-            nameID="64011281"
-            name="นายศัตชล หอมหวล"
+            nameID="64011301"
+            name="สิทธิ นวะมะวัฒน์"
             role="Frontend"
           />
         </div>

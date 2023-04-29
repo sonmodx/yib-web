@@ -6,7 +6,7 @@ import Loading from "../../../components/Loading";
 const CarryOrders = ({ filterOrders, getEveryOrder }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  console.log(orders);
   const handleUpdateOrder = async (id, status) => {
     console.log("before status", status);
     const newStatus = Number(status) == 0 ? 1 : 0;
@@ -71,6 +71,8 @@ const CarryOrders = ({ filterOrders, getEveryOrder }) => {
           desc={order.description}
           status={order.status}
           imageURL={imageURL}
+          name={order.username}
+          raiderUsername={order.raiderUsername}
           action={() => handleUpdateOrder(order.id, order.status)}
         />
       ))}
