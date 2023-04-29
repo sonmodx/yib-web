@@ -97,34 +97,7 @@ const Deposit = ({ user, username }) => {
       document.body.classList.remove("loading");
     }
   };
-  const shop = [
-    {
-      name:"ร้านเทคโนอินเตอร์ kmitl inter food" ,
-      menus: ["ชุดอาหารเช้า american Breakfast",
-      "ไข่กะทะทรงเครื่อง Two Eggs on a pan and Topping",
-      "ครีมซุปเห็ด ครีมซุปไก่ Mushroom, Chicken Crcam soup",
-      " สลัดเทคโน ไก่ทอด ไก่ย่าง หมูทอด ปลาทอด Kmitl salad"
-      ],
-    },
-    {
-      name:"ร้านอินดรีส indris" ,
-      menus: ["กระเพราหมูกรอบ"
-      ],
-    }, 
-    {
-      name:"ร้านไอเย็น i-yen" ,
-      menus: ["ชุดอาหารเช้า american Breakfast",
-      "ไข่กะทะทรงเครื่อง Two Eggs on a pan and Topping",
-      "ครีมซุปเห็ด ครีมซุปไก่ Mushroom, Chicken Crcam soup",
-      " สลัดเทคโน ไก่ทอด ไก่ย่าง หมูทอด ปลาทอด Kmitl salad"
-      ],
-    },
-    {
-      name:"ร้านพี่ฝน กาแฟสด&น้ำปั่น" ,
-      menus: ["ชุดอาหารเช้า american Breakfast","ไข่กะทะทรงเครื่อง Two Eggs on a pan and Topping","ครีมซุปเห็ด ครีมซุปไก่ Mushroom, Chicken Crcam soup","สลัดเทคโน ไก่ทอด ไก่ย่าง หมูทอด ปลาทอด Kmitl salad" ],
-    }
 
-<<<<<<< Updated upstream
   const acceptOrder = async (id) => {
     console.log("id", id);
     try {
@@ -183,28 +156,15 @@ const Deposit = ({ user, username }) => {
   const [menu,setMenu] = useState([]);
   const [menus,setMenus] = useState([]);
    
-=======
-  ]
-  const [name,setName] = useState('--Name--');
-  const [menu,setMenu] = useState('Menu');
-  const [menus,setMenus] = useState([]);
-  const [piece, setPiece] = useState();
-
->>>>>>> Stashed changes
  
   const changeName = (event) => {
     setName(event.target.value);
     setMenus(shop.find(ctr => ctr.name === event.target.value).menus);
   };
   function changeMenu(event){
-<<<<<<< Updated upstream
     setMenu(event.target.value);  
   }
 
-=======
-    setMenu(event.target.value);
-  }
->>>>>>> Stashed changes
   return (
     <div className="Deposit">
       <header>
@@ -263,34 +223,6 @@ const Deposit = ({ user, username }) => {
               ))
             )}
           </div>
-        </div>
-         
-        <div className="container">
-        <h1 className="sub-title">
-            รายการอาหารแนะนำ
-          </h1>
-        <select className="control" value={name} onChange={changeName}>
-          <option>เลือกร้านค้า</option>
-          {shop.map(ctr => (
-            <option value={ctr.name}>{ctr.name}</option>
-          ))}
-        </select>
-        <br/>
-        <select className="control_menu" value={menu} onChange={changeMenu}>
-         <option>เลือกเมนูที่ต้องการ</option>
-          {menus.map(menu => (
-            <option value={menu}>{menu}</option>
-          ))}
-        <br/>
-        </select>
-        <select className="number" value={piece} >
-          <option> 1 </option> 
-          <option> 2 </option> 
-          <option> 3 </option> 
-          <option> 4 </option> 
-          <option> 5 </option>
-        </select>
-        <br/>
         </div>
       </section>
       <div className="choosemenu">
