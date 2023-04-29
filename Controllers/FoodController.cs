@@ -25,7 +25,7 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie or User Error");
             }
             //สร้าง ข้อมูลใหม่ของ user ที่จะถูกเพิ่มไป database
-            FoodModel newFark = new FoodModel(username.username,owner, model.Header!, model.Description!, 0);
+            FoodModel newFark = new FoodModel(username.username, owner, model.Header!, model.Description!, 0);
             _db.Food.Add(newFark);
             _db.SaveChanges();
             return Ok();
@@ -82,7 +82,7 @@ namespace my_new_app.Controllers
             }
             var CompleteOrder = _db.Food.Where(u => u.Email == user && u.Status == 2);
             var PendingOrder = _db.Food.Where(u => u.Email == user && u.Status != 2);
-            return Ok(PendingOrder.Concat(CompleteOrder).Select(f => new { f.Id, f.Header, f.Description, f.Status }));
+            return Ok(PendingOrder.Concat(CompleteOrder).Select(f => new { f.Id, f.Username, f.Header, f.Description, f.Status, f.RaiderUsername }));
         }
 
         [HttpGet]
@@ -95,7 +95,7 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie Error");
             }
             //สร้าง list ของข้อมูลของคนที่ฝากซื้อแล้วยังไม่มีคนรับไป หรือที่ตนกดรับไป
-            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)).Select(f => new { f.Id, f.Header, f.Description, f.Status }));
+            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)).Select(f => new { f.Id, f.Username, f.Header, f.Description, f.Status }));
         }
 
         [HttpPost]
