@@ -60,6 +60,10 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie Error");
             }
             var myorder = _db.Food.FirstOrDefault(u => u.Id == OrderID && u.RiderEmail != null);
+            if (myorder == null)
+            {
+                return NotFound("Error, Order Not Found");
+            }
             myorder.Status = 2;
             _db.SaveChanges();
             return Ok();
@@ -77,7 +81,7 @@ namespace my_new_app.Controllers
             }
             var CompleteOrder = _db.Food.Where(u => u.Email == user && u.Status == 2);
             var PendingOrder = _db.Food.Where(u => u.Email == user && u.Status != 2);
-            return Ok(PendingOrder.Concat(CompleteOrder));
+            return Ok(PendingOrder.Concat(CompleteOrder).Select(f => new { f.Id, f.Header, f.Description, f.Status }));
         }
 
         [HttpGet]
@@ -90,7 +94,7 @@ namespace my_new_app.Controllers
                 return Unauthorized("Cookie Error");
             }
             //สร้าง list ของข้อมูลของคนที่ฝากซื้อแล้วยังไม่มีคนรับไป หรือที่ตนกดรับไป
-            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)));
+            return Ok(_db.Food.Where(u => (u.Email != user && u.Status == 0) || (u.RiderEmail == user && u.Status == 1)).Select(f => new { f.Id, f.Header, f.Description, f.Status }));
         }
 
         [HttpPost]
@@ -106,7 +110,7 @@ namespace my_new_app.Controllers
             var picked_order = _db.Food.FirstOrDefault(u => u.Id == OrderID && (u.RiderEmail == null || u.RiderEmail == user));
             if (picked_order == null)
             {
-                return BadRequest("Error, No Order from the id, Order could be taken");
+                return NotFound("Error, No Order from the id, Order could be taken");
             }
             switch (Status)
             {

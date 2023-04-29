@@ -17,21 +17,27 @@ namespace my_new_app.Controllers
         //interface
         public IActionResult Register([FromBody] UserModel newUser)
         {
-            var isUserExist = _db.Users.Any(u => u.email == newUser.email || u.username == newUser.username);
-            // ยังไม่มี user
-            if (!isUserExist)
+            if (_db.Users.Any(u => u.email == newUser.email))
             {
-                _db.Users.Add(newUser);
-                _db.SaveChanges();
-
-                var option = new CookieOptions();
-                option.Secure = true;
-                option.HttpOnly = false;
-                option.Expires = DateTimeOffset.UtcNow.AddHours(1);
-                Response.Cookies.Append("UserID", Base64Encode(newUser.email), option);
-                return Ok(newUser.username);
+                return BadRequest("Email Has been taken");
             }
-            return BadRequest("Username or Email Exist");
+
+            if (_db.Users.Any(u => u.username == newUser.username))
+            {
+                return BadRequest("Username has been taken");
+            }
+            // ยังไม่มี user
+
+            _db.Users.Add(newUser);
+            _db.SaveChanges();
+
+            var option = new CookieOptions();
+            option.Secure = true;
+            option.HttpOnly = false;
+            option.Expires = DateTimeOffset.UtcNow.AddHours(1);
+            Response.Cookies.Append("UserID", Base64Encode(newUser.email), option);
+            return Ok(newUser.username);
+
         }
 
         [HttpPost]

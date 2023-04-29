@@ -50,7 +50,7 @@ namespace my_new_app.Controllers
             {
                 return Unauthorized("Cookie Error");
             }
-            return Ok(_db.Noti.Where(u => u.ReceverEmail == user).OrderByDescending(n => n.TimeCreate));
+            return Ok(_db.Noti.Where(u => u.ReceverEmail == user).OrderByDescending(n => n.TimeCreate).Select(f => new { f.Id, f.Message }));
         }
         private static string? CheckUser(string? user)
         {
