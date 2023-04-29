@@ -82,10 +82,10 @@ const Home = () => {
               <h3 className="title">สามารถหิ้วของให้เพื่อน</h3>
               <h3 className="thirdary-font-clr">Lorem ipsum dolor sit amet.</h3>
               <p className="thirdary-font-clr">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reprehenderit doloremque necessitatibus nobis unde beatae
-                expedita ratione nihil eaque sit dolorem nam consequatur, rerum
-                facere nesciunt, eos voluptates! Fugiat, beatae nobis.
+              การแบ่งปันและช่วยเหลือกันเป็นสิ่งที่ดีและสร้างสรรค์ความสัมพันธ์ที่ดีในกลุ่มเพื่อน 
+              ไม่ว่าจะเป็นในสถานที่ต่างๆหรือเวลาใดก็ตาม 
+              เราสามารถหิ้วของให้เพื่อนเพื่อเป็นการเสริมสร้างความเข้าใจและความร่วมมือกันได้ 
+              ทำให้เรามีช่วงเวลาที่สุขสบายและมีความสุขกับกิจกรรมที่เรากำลังทำด้วยกัน
               </p>
             </div>
           </div>
