@@ -31,7 +31,7 @@ const Home = () => {
         <div className="grid">
           <Card
             title="FOOD"
-            description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus nisi ab quas quis doloremque reprehenderit atque! Iste dicta eaque aliquam?"
+            description="การรับประทานอาหารเป็นสิ่งสำคัญในการสร้างพลังงานและ ความแข็งแรงของร่างกาย เลือกทานอาหารที่มีประโยชน์ เช่น ผัก ผลไม้ และอาหารที่มีโปรตีนสูง เช่น เนื้อปลา ไก่ หรือถั่วเหลือง"
           />
           <Card
             title="BEVERAGE"
