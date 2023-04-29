@@ -61,7 +61,6 @@
 }
 
 
-
 .Deposit header .grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -81,6 +80,32 @@
 
 .Deposit .grid .span-2 {
     grid-column: span 2;
+}
+
+.Deposit .choosemenu {
+    width: min(90%, 65rem);
+    margin-inline: auto;
+}
+
+.Deposit .choosemenu .control {
+    width: 200px;
+    margin-inline: auto;
+}
+
+.Deposit .choosemenu .control_menu {
+    width: 300px;
+    margin-inline: auto;
+}
+
+.Deposit .menucard {
+    padding: 2rem;
+    box-shadow: var(--box-shadow);
+    border: var(--border-card);
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
 @media screen and (max-width : 800px){

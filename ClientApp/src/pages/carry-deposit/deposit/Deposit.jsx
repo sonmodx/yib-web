@@ -123,6 +123,48 @@ const Deposit = ({ user, username }) => {
     }
   };
 
+  const shop = [
+    {
+      name:"ร้านเทคโนอินเตอร์" ,
+      menus: ["ชุดอาหารเช้า","ไข่กะทะทรงเครื่อง","ครีมซุปเห็ด ครีมซุปไก่","สลัดเทคโน ไก่ทอด ไก่ย่าง หมูทอด ปลาทอด",
+      "สเต็กอกไก่ ไก่สไปซี่ สันคอหมู เนื้อโคขุน",'ข้าวไก่ย่างเทริยากิ' ,'ข้าวยำไก่ย่าง','ข้าวไก่ชีส','ข้าวไก่แพนง ไก่ทอดเขียวหวาน','ข้าวไก่ทอดเทคโน',
+      'ข้าวไก่คาราเกะ','ไก่ทอดกระเพรา','ข้าวหมูสไปซี่', 'ข้าวหมูกะทะผัดไข่','ข้าวหมูทอดแกงกะหรี่', 'หมูทอดทงคัตสึ' ,'หมูทอดขอสแฮม',
+      'ข้าวเบคอนไข่กะทะ'
+      ],
+    },
+    {
+      name:"ร้านอินดรีส indris" ,
+      menus: [ 'ข้าวราดแกง 1 อย่าง','ข้าวราดแกง 2 อย่าง','กับข้าว (ถุง)','ผัดกะเพรา','ผัดพริกแกง','ผัดน้ำมันหอย','ข้าวผัดขี้เมาทะเล',
+      'ไข่เจียว','ผัดซีอิ๊ว','ข้าวผัด','ข้าวผัดต้มยำ','ไข่ดาว','ข้าวเปล่า'
+      ],
+    }, 
+    {
+      name:"ร้านไอเย็น i-yen" ,
+      menus: ['น้ำแข็งใส/เต้าทึง','รวมมิตร/ลอดช่องสิงคโปร์','เฉาก๊วยนมสด','ขนมหวาน/ขนมไทย','ลูกชิ้นทอด/นักเก็ต/ปอเปี๊ยะ',
+      'ผลไม้ตามฤดูกาล','ขนมขบเคี้ยว','เบเกอรี่'
+      ],
+    },
+    {
+      name:"ร้านพี่ฝน กาแฟสด&น้ำปั่น" ,
+      menus: ['กาแฟสด,ชา ร้อน/เย็น/ปั่น','ชาไต้หวันไข่มุก','นมสด ร้อน/เย็น/ปั่น','น้ำสมุนไพร, น้ำหวาน','น้ำเปล่า,น้ำอดลม,นมกลอง','เอสเพรสโซ' , 
+      'คาปูชิโน','ลาเต้','ชาเขียวนม','มอคค่า','ชานม'],
+    }
+
+  ]
+
+  const [name,setName] = useState([]);
+  const [menu,setMenu] = useState([]);
+  const [menus,setMenus] = useState([]);
+   
+ 
+  const changeName = (event) => {
+    setName(event.target.value);
+    setMenus(shop.find(ctr => ctr.name === event.target.value).menus);
+  };
+  function changeMenu(event){
+    setMenu(event.target.value);  
+  }
+
   return (
     <div className="Deposit">
       <header>
@@ -151,7 +193,6 @@ const Deposit = ({ user, username }) => {
                 </div>
               </form>
             </div>
-
             <Notification setLoading={setLoading} />
           </div>
         </div>
@@ -184,6 +225,99 @@ const Deposit = ({ user, username }) => {
           </div>
         </div>
       </section>
+      <div className="choosemenu">
+        <h1 className="sub-title">
+            รายการอาหารแนะนำ
+          </h1>
+        <select className="control" value={name} onChange={changeName}>
+          <option>เลือกร้านค้า</option>
+          {shop.map(ctr => (
+            <option value={ctr.name}>{ctr.name}</option>
+          ))}
+        </select>
+        <br/>
+        <select className="control_menu" value={menu} onChange={changeMenu}>
+         <option>เลือกเมนูที่ต้องการ</option>
+          {menus.map(menu => (
+            <option value={menu}>{menu}</option>
+          ))}
+        <br/>
+        </select>
+      </div>
+      <div className="menucard">
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      <Card
+        title="ชุดอาหารเช้า"
+        desc="american Breakfast"
+        textBtn="45"
+        colorBtn="gray"
+        imageURL={imageURL}
+      />
+      
+      </div>
+      
     </div>
   );
 };
