@@ -31,15 +31,15 @@ const Home = () => {
         <div className="grid">
           <Card
             title="FOOD"
-            description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus nisi ab quas quis doloremque reprehenderit atque! Iste dicta eaque aliquam?"
+            description='อาหารเป็นสิ่งจำเป็นต่อชีวิตของมนุษย์ เพื่อให้ร่างกายได้รับพลังงานและสารอาหารที่จำเป็นสำหรับการเจริญเติบโตและดำรงชีวิต การบริโภคอาหารที่ถูกต้องมีผลต่อสุขภาพร่างกายและจิตใจของเราอย่างมาก ดังนั้นเราควรรู้จักและปฏิบัติตามหลักโภชนาการที่ถูกต้อง'
           />
           <Card
             title="BEVERAGE"
-            description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus nisi ab quas quis doloremque reprehenderit atque! Iste dicta eaque aliquam?"
+            description="เครื่องดื่มคือผลิตภัณฑ์ที่ใช้ในการดื่ม เช่น น้ำ, ชา, กาแฟ, น้ำผลไม้, น้ำส้ม, เบียร์, ไวน์, โซดา, น้ำอัดลม ฯลฯ การดื่มเครื่องดื่มเป็นสิ่งที่มนุษย์ทำมาตั้งแต่อดีตโบราณ และเครื่องดื่มมีบทบาทสำคัญในการสร้างความสุขและความอร่อยในชีวิตประจำวันของเรา"
           />
           <Card
             title="DATE"
-            description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus nisi ab quas quis doloremque reprehenderit atque! Iste dicta eaque aliquam?"
+            description="การมาตรงเวลาเป็นสิ่งสำคัญในการดำเนินชีวิตทั้งในด้านการทำงานและการปฏิบัติต่างๆ เพราะมันช่วยเพิ่มประสิทธิภาพในการทำงานและสร้างความเชื่อมั่นในตัวเราเอง การมาไม่ตรงเวลาอาจส่งผลให้เราสูญเสียโอกาสหรือขาดความสำคัญในสิ่งที่ต้องทำ"
           />
         </div>
       </div>
@@ -62,12 +62,12 @@ const Home = () => {
             <img className="image1" src={image1} alt="img1" />
             <div className="content">
               <h3 className="title">สามารถฝากเพื่อนหิ้วของมาให้</h3>
-              <h3 className="thirdary-font-clr">Lorem ipsum dolor sit amet.</h3>
-              <p className="thirdary-font-clr">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corporis dolor consequatur deserunt unde. Quas porro ducimus vel
-                quis. Laborum hic modi voluptatibus ullam labore blanditiis
-                velit dolorem fuga in quidem.
+              <h3 className="thirdary-font-clr">เมื่อเราหิวหรืออยากได้อะไร</h3>
+              <p className="thirdary-font-clr">              
+              เมื่อร่างกายของเรารู้สึกหิวหรืออยากได้อะไร 
+              มันจะส่งสัญญาณไปยังสมองของเราว่าต้องการอาหารหรือเครื่องดื่มบางอย่าง 
+              เพื่อให้ร่างกายได้รับพลังงานและสารอาหารที่จำเป็นสำหรับการทำงานและดำรงชีวิตในระยะยาว 
+              ดังนั้นเราควรรับประทานอาหารที่ถูกต้องและไม่เกินจำเป็นเพื่อรักษาสุขภาพร่างกายของเราไว้ในสภาพที่ดี
               </p>
             </div>
           </div>
@@ -80,12 +80,12 @@ const Home = () => {
             <img className="image2" src={image2} alt="img2" />
             <div className="content">
               <h3 className="title">สามารถหิ้วของให้เพื่อน</h3>
-              <h3 className="thirdary-font-clr">Lorem ipsum dolor sit amet.</h3>
+              <h3 className="thirdary-font-clr">ไม่ว่าจะที่ไหนหรือเมื่อไหร่เราก็สามารถหิ้วของให้เพื่อนได้เสมอ</h3>
               <p className="thirdary-font-clr">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Reprehenderit doloremque necessitatibus nobis unde beatae
-                expedita ratione nihil eaque sit dolorem nam consequatur, rerum
-                facere nesciunt, eos voluptates! Fugiat, beatae nobis.
+              การแบ่งปันและช่วยเหลือกันเป็นสิ่งที่ดีและสร้างสรรค์ความสัมพันธ์ที่ดีในกลุ่มเพื่อน 
+              ไม่ว่าจะเป็นในสถานที่ต่างๆหรือเวลาใดก็ตาม 
+              เราสามารถหิ้วของให้เพื่อนเพื่อเป็นการเสริมสร้างความเข้าใจและความร่วมมือกันได้ 
+              ทำให้เรามีช่วงเวลาที่สุขสบายและมีความสุขกับกิจกรรมที่เรากำลังทำด้วยกัน
               </p>
             </div>
           </div>
