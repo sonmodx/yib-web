@@ -1,6 +1,7 @@
 .Deposit {
     padding-top: var(--navbar-height);
     color: var(--secondary-font-clr);
+    padding-bottom: 50rem;
 }
 
 .Deposit textarea, input {
@@ -96,17 +97,6 @@
 .Deposit .choosemenu .control_menu {
     width: 300px;
     margin-inline: auto;
-}
-
-.Deposit .menucard {
-    padding: 2rem;
-    box-shadow: var(--box-shadow);
-    border: var(--border-card);
-    border-radius: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
 }
 
 @media screen and (max-width : 800px){
