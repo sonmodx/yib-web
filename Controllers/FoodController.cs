@@ -99,7 +99,7 @@ namespace my_new_app.Controllers
         }
 
         [HttpPost]
-        //ผู้ใช้กดรับฝากซื้อหรือยกเลิกการับรฝากซื้อ
+        //ผู้ใช้กดรับฝากซื้อหรือยกเลิกการับฝากซื้อ
         public IActionResult Updateorder([FromQuery] int OrderID, [FromQuery] int Status)
         {
             var user = CheckUser(Request.Cookies["UserID"]);
@@ -114,21 +114,27 @@ namespace my_new_app.Controllers
             {
                 return NotFound("Error, No Order from the id, Order could be taken,Or no User in DB");
             }
+            string yibaction;
             switch (Status)
             {
-                case 1:
-                    picked_order.RiderEmail = user;
-                    picked_order.RaiderUsername = username.username;
-                    break;
                 case 0:
                     picked_order.RiderEmail = null;
                     picked_order.RaiderUsername = null;
+                    yibaction = " ได้ทำการวาง ";
+                    break;
+                case 1:
+                    picked_order.RiderEmail = user;
+                    picked_order.RaiderUsername = username.username;
+                    yibaction = " ได้ทำการหยิบ ";
                     break;
                 default:
                     return BadRequest("Error, Status code from frontend");
 
             }
             picked_order.Status = Status;
+            //สร้างNotificationในการแจ้งเตือนผู้ใช้
+            string Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
+            _db.Noti.Add(new NotificationModel(user, picked_order.Email, Message));
             _db.SaveChanges();
             return Ok();
         }
