@@ -121,6 +121,7 @@ namespace my_new_app.Controllers
                 case 0:
                     yibaction = " ได้ทำการวาง ";
                     Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
+                    _db.Noti.Add(new NotificationModel(user, picked_order.Email, Message));
                     picked_order.RiderEmail = null;
                     picked_order.RaiderUsername = null;
                     break;
@@ -129,6 +130,7 @@ namespace my_new_app.Controllers
                     picked_order.RaiderUsername = username.username;
                     yibaction = " ได้ทำการหยิบ ";
                     Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
+                    _db.Noti.Add(new NotificationModel(user, picked_order.Email, Message));
                     break;
                 default:
                     return BadRequest("Error, Status code from frontend");
@@ -136,8 +138,6 @@ namespace my_new_app.Controllers
             }
             picked_order.Status = Status;
             //สร้างNotificationในการแจ้งเตือนผู้ใช้
-
-            _db.Noti.Add(new NotificationModel(user, picked_order.Email, Message));
             _db.SaveChanges();
             return Ok();
         }
