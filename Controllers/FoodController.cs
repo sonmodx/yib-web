@@ -115,17 +115,20 @@ namespace my_new_app.Controllers
                 return NotFound("Error, No Order from the id, Order could be taken,Or no User in DB");
             }
             string yibaction;
+            string Message;
             switch (Status)
             {
                 case 0:
+                    yibaction = " ได้ทำการวาง ";
+                    Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
                     picked_order.RiderEmail = null;
                     picked_order.RaiderUsername = null;
-                    yibaction = " ได้ทำการวาง ";
                     break;
                 case 1:
                     picked_order.RiderEmail = user;
                     picked_order.RaiderUsername = username.username;
                     yibaction = " ได้ทำการหยิบ ";
+                    Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
                     break;
                 default:
                     return BadRequest("Error, Status code from frontend");
@@ -133,7 +136,7 @@ namespace my_new_app.Controllers
             }
             picked_order.Status = Status;
             //สร้างNotificationในการแจ้งเตือนผู้ใช้
-            string Message = picked_order.RaiderUsername + yibaction + picked_order.Header + " ของ " + picked_order.Username;
+
             _db.Noti.Add(new NotificationModel(user, picked_order.Email, Message));
             _db.SaveChanges();
             return Ok();

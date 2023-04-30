@@ -7,46 +7,42 @@ const CarryOrders = ({ filterOrders, getEveryOrder }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   console.log(orders);
+
   const handleUpdateOrder = async (id, status) => {
     console.log("before status", status);
     const newStatus = Number(status) == 0 ? 1 : 0;
-    console.log("after status", newStatus);
-    console.log("id", id);
     try {
       setLoading(true);
       document.body.classList.add("loading");
-      const [updateResponse, notiResponse] = await Promise.all([
-        fetch(`/food/updateorder?OrderID=${id}&Status=${newStatus}`, {
+      const updateResponse = await fetch(
+        `/food/updateorder?OrderID=${id}&Status=${newStatus}`,
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-        }),
-        fetch(`/notification/createnoti?OrderID=${id}&Status=${newStatus}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }),
-      ]);
-      const textUpdate = await updateResponse.text();
-      const textNoti = await notiResponse.text();
+        }
+      );
 
-      if (updateResponse.ok && notiResponse.ok) {
-        console.log("SUCCESS CHANGE STATE AND CREATE NOTI");
+      const textUpdate = await updateResponse.text();
+
+      if (updateResponse.ok) {
+        console.log("SUCCESS CHANGE STATE");
         const data = await getEveryOrder();
         console.log(data);
         setOrders(data);
         return;
       }
       console.log(textUpdate);
-      console.log(textNoti);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
       document.body.classList.remove("loading");
     }
+
+    console.log("after status", newStatus);
+    console.log("id", id);
   };
 
   useEffect(() => {
