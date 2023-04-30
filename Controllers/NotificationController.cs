@@ -10,37 +10,7 @@ namespace my_new_app.Controllers
         {
             _db = db;
         }
-        [HttpPost]
-        public IActionResult CreateNoti([FromQuery] int OrderID, [FromQuery] int status)
-        {
-            //สร้างข้อความ notification จากการที่มีคนไปกดรับซื้อ
-            var user = CheckUser(Request.Cookies["UserID"]);
-            if (user == null)
-            {
-                return Unauthorized("Cookie Error");
-            }
-            var Reciver = _db.Food.FirstOrDefault(u => u.Id == OrderID);
-            if (Reciver == null)
-            {
-                return NotFound("Error,No Order ID in DB");
-            }
-            string yibaction;
-            switch (status)
-            {
-                case 0:
-                    yibaction = "ได้ทำการวาง";
-                    break;
-                case 1:
-                    yibaction = " ได้ทำการหยิบ ";
-                    break;
-                default:
-                    return BadRequest("Status Error");
-            }
-            string Message = Reciver.RaiderUsername + yibaction + Reciver.Header + " ของ " + Reciver.Username;
-            _db.Noti.Add(new NotificationModel(user, Reciver.Email, Message));
-            _db.SaveChanges();
-            return Ok(Message);
-        }
+        
         [HttpGet]
         public IActionResult GetMyNoti()
         {
