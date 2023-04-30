@@ -51,9 +51,11 @@ const CarryOrders = ({ filterOrders, getEveryOrder }) => {
 
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const data = await getEveryOrder();
       console.log(data);
       setOrders(data);
+      setLoading(false);
     };
     getData();
   }, [setOrders]);

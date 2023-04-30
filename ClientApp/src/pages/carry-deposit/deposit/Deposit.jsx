@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Deposit.css";
 import Button from "../../../components/Button";
 
@@ -9,6 +9,7 @@ import "./dropDown.css";
 import ShowOrders from "./ShowOrders";
 const Deposit = ({ user, username }) => {
   const navigate = useNavigate();
+  const [header, setHeader] = useState("");
   // const [loading, setLoading] = useState(false);
   console.log("PARENT");
   useEffect(() => {
@@ -142,12 +143,30 @@ const Deposit = ({ user, username }) => {
   ];
 
   const [selectShop, setSelectShop] = useState("รายการร้านอาหาร");
-  const [menus, setMenus] = useState([]);
 
   const findShop = () => {
     const [newShop] = shops.filter((shop) => shop.name === selectShop);
     console.log(newShop);
     return newShop;
+  };
+
+  const handleSelectGuideMenu = (menu, e) => {
+    const newMenu = menu;
+    const item = e.target;
+    item.classList.add("add-item");
+    console.log("start");
+    setTimeout(() => {
+      item.classList.remove("add-item");
+    }, 500);
+
+    console.log("end");
+    console.log(item);
+    console.log("newMenu", newMenu);
+    if (header === "") {
+      setHeader(newMenu);
+      return;
+    }
+    setHeader((prev) => prev + ", " + newMenu);
   };
 
   return (
@@ -158,11 +177,54 @@ const Deposit = ({ user, username }) => {
             <div className="panel-left span-2">
               <p>ฝากหิ้ว&ensp;----</p>
               <h1 className="welcome">ยินดีต้อนรับ "{username}"</h1>
+
+              <div className="dropdown">
+                <input type="checkbox" id="dropdown" />
+
+                <label className="dropdown__face" htmlFor="dropdown">
+                  <div className="dropdown__text">{selectShop}</div>
+                  {selectShop === "รายการร้านอาหาร" ? (
+                    <div className="dropdown__arrow"></div>
+                  ) : (
+                    <i
+                      className="dropdown__exit fa-solid fa-x"
+                      onClick={() => setSelectShop("รายการร้านอาหาร")}
+                    ></i>
+                  )}
+                </label>
+
+                <ul className="dropdown__items">
+                  {selectShop === "รายการร้านอาหาร"
+                    ? shops?.map((shop, idx) => (
+                        <li
+                          key={idx}
+                          className="item__lists"
+                          onClick={() => {
+                            setSelectShop(shop.name);
+                          }}
+                        >
+                          {shop.name}
+                        </li>
+                      ))
+                    : findShop()?.menus?.map((menu, idx) => (
+                        <li
+                          key={idx}
+                          className="item__lists menu"
+                          onClick={(e) => handleSelectGuideMenu(menu, e)}
+                        >
+                          {menu}
+                        </li>
+                      ))}
+                </ul>
+              </div>
+
               <form className="form" onSubmit={handleFark}>
                 <input
                   type="text"
                   name="header"
                   placeholder="ฝากเพื่อนซื้อไรดี..."
+                  value={header}
+                  onChange={(e) => setHeader(e.target.value)}
                   required
                 />
                 <hr />
@@ -193,40 +255,6 @@ const Deposit = ({ user, username }) => {
           </h1>
           <div className="grid">
             <ShowOrders getMyOrder={getMyOrder} />
-          </div>
-
-          <h2>GUIDE LINE ORDERS</h2>
-          <div className="dropdown">
-            <input type="checkbox" id="dropdown" />
-
-            <label className="dropdown__face" htmlFor="dropdown">
-              <div className="dropdown__text">{selectShop}</div>
-              {selectShop === "รายการร้านอาหาร" ? (
-                <div className="dropdown__arrow"></div>
-              ) : (
-                <i
-                  className="dropdown__exit fa-solid fa-x"
-                  onClick={() => setSelectShop("รายการร้านอาหาร")}
-                ></i>
-              )}
-            </label>
-
-            <ul className="dropdown__items">
-              {selectShop === "รายการร้านอาหาร"
-                ? shops?.map((shop, idx) => (
-                    <li
-                      key={idx}
-                      onClick={() => {
-                        setSelectShop(shop.name);
-                      }}
-                    >
-                      {shop.name}
-                    </li>
-                  ))
-                : findShop()?.menus?.map((menu, idx) => (
-                    <li key={idx}>{menu}</li>
-                  ))}
-            </ul>
           </div>
         </div>
       </section>

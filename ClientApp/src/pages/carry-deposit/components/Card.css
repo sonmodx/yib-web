@@ -6,11 +6,18 @@
     align-self: flex-end;
 }
 
-.Card .group {
+.Card .group-flex {
     
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.Card .group-flex.column {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1em;
 }
 
 .Card .name {

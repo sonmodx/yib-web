@@ -8,7 +8,7 @@ import topazImg from "./image/topaz.png";
 const ProfileCard = ({ srcImg, name, role, nameID }) => {
   return (
     <div className="ProfileCard">
-      <img src={srcImg} alt="avatar" />
+      <img src={srcImg} alt="avatar" width="256" height="256" />
       <p className="nameID">{nameID}</p>
       <p className="name">{name}</p>
       <p className="role">{role}</p>

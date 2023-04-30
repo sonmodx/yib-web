@@ -13,6 +13,10 @@
     margin-top: 1em;
 }
 
+.Card img {
+    margin-bottom: 2rem;
+}
+
 .Card .title {
     font-size: var(--secondary-fs);
     color: var(--secondary-font-clr);

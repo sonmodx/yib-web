@@ -1,21 +1,25 @@
 .Deposit .dropdown {
     position: relative;
-    width: 270px;
+    max-width: 270px;
+    margin-block: 1rem;
   }
 
   .Deposit .dropdown__text {
-    color: black;
+    color: var(--font-clr)
   }
 
   .Deposit .dropdown__face, .dropdown__items {
-    background-color: var(--font-clr);
-    padding: 20px;
+    background-color: var(--bg-clr);
+    padding: 10px;
     
   }
 
   .Deposit .dropdown__face {
     display: block;
     position: relative;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 1em;
   }
 
   .Deposit .dropdown__items {
@@ -34,16 +38,46 @@
       visibility: hidden;
       opacity: 0;
       transition: all 0.4s cubic-bezier(0.93, 0.88, 0.1, 0.8);
-      color: black;
+      color: var(--font-clr);
+      z-index: 99;
+      border-radius: 1em;
   }
 
-  
+  .Deposit .item__lists {
+    position: relative;
+  }
 
+  .Deposit .item__lists::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2.5px;
+    background-color: var(--main-clr);
+    top: 120%;
+    left: 0;
+    opacity: 0;
+    transition: 0.125s cubic-bezier(0.93, 0.88, 0.1, 0.8);
+  }
 
+  .Deposit .item__lists:is(:hover,:focus)::before {
+    top: 100%;
+    opacity: 1;
+  }
+
+  .Deposit .item__lists.menu {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  .Deposit .item__lists.menu.add-item {
+    transition: .5s ease;
+    transform: translateX(100%);
+    opacity: 0;
+  }
 
   .Deposit .dropdown__arrow {
-    border-bottom: 2px solid #000;
-    border-right: 2px solid #000;
+    border-bottom: 2px solid var(--thirdary-font-clr);
+    border-right: 2px solid var(--thirdary-font-clr);
     position: absolute;
     top: 50%;
     right: 30px;
@@ -55,11 +89,11 @@
 
   .Deposit .dropdown__exit {
     position: absolute;
-    top: 40%;
-    right: 30px;
+    top: 35%;
+    right: 25px;
     width: 10px;
     height: 10px;
-    color: black;
+    color: var(--thirdary-font-clr);
   }
 
   .Deposit .dropdown input {
@@ -67,7 +101,7 @@
   }
 
   .Deposit .dropdown input:checked ~ .dropdown__items {
-    top: 100% ;
+    top: 120% ;
     visibility: visible;
     opacity: 1;
   }

@@ -53,6 +53,41 @@
     grid-column: span 2;
 }
 
+.Carry .input-field {
+    width: min(100%, 380px);
+    background-color: var(--bg-clr);
+    margin: 10px 0;
+    height: 55px;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+    position: relative;
+  }
+  
+  .Carry .input-field i {
+    text-align: center;
+    line-height: 55px;
+    color: var(--font-clr);
+    transition: 0.5s;
+    font-size: var(--thirdary-fs);
+  }
+  
+  .Carry .input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: var(--thirdary-fs);
+    color: var(--font-clr);
+  }
+  
+  .Carry .input-field input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+  }
+
 
 @media screen and (max-width : 800px){
     .Carry section .grid {

@@ -65,7 +65,8 @@ const Carry = ({ user, username }) => {
               <p>รับหิ้ว&ensp;----</p>
               <h1 className="welcome">ยินดีต้อนรับ "{username}"</h1>
             </div>
-            <div className="filer-box">
+            <div className="input-field">
+              <i className="fa-solid fa-magnifying-glass-plus"></i>
               <input
                 type="text"
                 placeholder="Filter ..."

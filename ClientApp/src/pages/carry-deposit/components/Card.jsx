@@ -53,19 +53,21 @@ const Card = ({
 
   return (
     <div className="Card">
-      <img src={imageURL} alt="card" />
-      <p className="title">{title}</p>
-      <p className="description">{desc}</p>
+      <div className="group-flex column">
+        <img src={imageURL} alt="card" />
+        <p className="title">{title}</p>
+        <p className="description">{desc}</p>
 
-      {status === 1 && location.pathname === "/deposit" && (
-        <p className="name">{`Raider: ${raiderUsername}`}</p>
-      )}
-      {location.pathname === "/carry" && (
-        <p className="name">{`User: ${name}`}</p>
-      )}
+        {status === 1 && location.pathname === "/deposit" && (
+          <p className="name">{`Raider: ${raiderUsername}`}</p>
+        )}
+        {location.pathname === "/carry" && (
+          <p className="name">{`User: ${name}`}</p>
+        )}
+      </div>
 
       <div className="right">
-        <div className="group">
+        <div className="group-flex">
           <Button
             id={id}
             text={textBtn}

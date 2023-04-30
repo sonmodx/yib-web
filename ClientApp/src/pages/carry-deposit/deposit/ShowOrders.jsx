@@ -8,9 +8,11 @@ const ShowOrders = ({ getMyOrder }) => {
   console.log(orders);
   useEffect(() => {
     const getData = async () => {
+      setLoading(true);
       const data = await getMyOrder();
       console.log(data);
       setOrders(data);
+      setLoading(false);
     };
     getData();
   }, [setOrders]);
