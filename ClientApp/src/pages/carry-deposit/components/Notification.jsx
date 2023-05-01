@@ -35,9 +35,11 @@ const Notification = () => {
     };
     getLists();
   }, []);
+
   return (
     <div className="Notifi">
       <h1 className="title">แจ้งเตือน</h1>
+      {lists.length === 0 && <p>ไม่มีรายการแจ้งเตือนตอนนี้</p>}
       <ul className="lists">
         {lists?.map((l) => (
           <li key={l.id}>-{l.message}</li>

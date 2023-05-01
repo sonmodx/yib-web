@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Loading from "../../../components/Loading";
 import Card from "../components/Card";
 import imageURL from "../../../assets/main-image.png";
+import Empty from "../components/Empty";
 const ShowOrders = ({ getMyOrder }) => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -75,6 +76,9 @@ const ShowOrders = ({ getMyOrder }) => {
   };
   if (loading) {
     return <Loading />;
+  }
+  if (orders.length === 0) {
+    return <Empty />;
   }
   return (
     <>

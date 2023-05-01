@@ -32,12 +32,11 @@ const Auth = ({ setUser, setUsername }) => {
     const email = event.target.email.value;
     const password = event.target.password.value;
     console.log(email, password);
-    const apiUrl = "/user/login";
 
     try {
       setLoading(true);
       document.body.classList.add("loading");
-      const response = await fetch(apiUrl, {
+      const response = await fetch("/user/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,8 +226,8 @@ const Auth = ({ setUser, setUsername }) => {
             <div className="content">
               <h3>ยังไม่มีบัญชี?</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Debitis, ex ratione. Aliquid!
+                ครั้งแรกสินะ มาเป็นสมาชิกกับเราก่อนสิ จีบเค้าไม่ติดไม่เป็นไร
+                มาเป็นสมาชิกกับเราก่อนแล้วจะมูฟออนได้แน่นอน ฮ่าๆ
               </p>
               <button
                 className="btn transparent"
@@ -244,8 +243,9 @@ const Auth = ({ setUser, setUsername }) => {
             <div className="content">
               <h3>มีสมาชิกแล้ว ?</h3>
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-                laboriosam ad deleniti.
+                เค้ามีแฟนแล้วไม่เป็นไร อย่างน้อยเราก็เป็นสมาชิกกับหยิบนะ
+                ละถ้าชอบจริงๆ ก็ลองบอกกับเค้าดูสิ
+                เผื่อเค้าอาจจะเปลี่ยนใจมาเป็นสมาชิกกับหยิบด้วย ฮ่าๆ
               </p>
               <button
                 className="btn transparent"

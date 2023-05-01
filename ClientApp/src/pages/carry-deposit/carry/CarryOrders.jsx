@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import imageURL from "../../../assets/carry.png";
 import Loading from "../../../components/Loading";
+import Empty from "../components/Empty";
 
 const CarryOrders = ({ filterOrders, getEveryOrder }) => {
   const [orders, setOrders] = useState([]);
@@ -57,6 +58,10 @@ const CarryOrders = ({ filterOrders, getEveryOrder }) => {
   }, [setOrders]);
   if (loading) {
     return <Loading />;
+  }
+
+  if (orders.length === 0) {
+    return <Empty />;
   }
 
   return (

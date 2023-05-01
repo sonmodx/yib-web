@@ -69,7 +69,7 @@ const Carry = ({ user, username }) => {
               <i className="fa-solid fa-magnifying-glass-plus"></i>
               <input
                 type="text"
-                placeholder="Filter ..."
+                placeholder="ค้นหา..."
                 onInput={(e) => {
                   setFind(e.target.value);
                   filterOrders();

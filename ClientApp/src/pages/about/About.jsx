@@ -19,7 +19,7 @@ const ProfileCard = ({ srcImg, name, role, nameID }) => {
 const About = () => {
   return (
     <div className="About">
-      <header>MEMBERS</header>
+      <header>ทีมพัฒนา</header>
       <div className="container">
         <div className="grid">
           <ProfileCard
@@ -37,13 +37,13 @@ const About = () => {
           <ProfileCard
             srcImg={nonImg}
             nameID="64011160"
-            name="นายนนทัช มุกลีมาศ"
+            name="นนทัช มุกลีมาศ"
             role="Backend"
           />
           <ProfileCard
             srcImg={modxImg}
             nameID="64011281"
-            name="นายศัตชล หอมหวล"
+            name="ศัตชล หอมหวล"
             role="Frontend"
           />
           <ProfileCard
