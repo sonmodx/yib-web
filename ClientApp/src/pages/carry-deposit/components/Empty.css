@@ -1,23 +1,4 @@
 .Empty {
-    position: relative;
-}
-
-.Empty .circle {
-    z-index: -1;
-    width: 50px;
-    aspect-ratio: 1;
-    border: 6px solid var(--font-clr);
-    border-radius: 50%;
-}
-
-.Empty .line {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    z-index: 1;
-    width: 87px;
-    height: 6px;
-    background-color: var(--main-clr);
-    border-radius: 1em;
-    transform: translateX(calc(-50% + 25px)) rotate(-45deg);
+    font-size: var(--secondary-fs);
+    color: var(--secondary-font-color);
 }
